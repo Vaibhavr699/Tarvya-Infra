@@ -1,0 +1,60 @@
+.trusted-logos {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.trusted-logos img {
+  transition: all 0.3s ease;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Hover effects for logo containers */
+.trusted-logos > div > div {
+  transition: all 0.3s ease;
+  background: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.trusted-logos > div > div:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure smooth animation */
+.trusted-logos .marquee-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .trusted-logos > div > div {
+    padding: 0.75rem;
+  }
+  
+  .trusted-logos img {
+    max-height: 3rem;
+  }
+}
+
+/* Animation for the trust badge */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.trust-badge {
+  animation: pulse 2s infinite;
+}

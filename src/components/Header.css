@@ -1,0 +1,20 @@
+@keyframes phone-ring {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(4deg); }
+  50% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes zoom-bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.animate-phone-ring {
+  animation: phone-ring 1.2s infinite;
+}
+
+.animate-zoom {
+  animation: zoom-bounce 1.2s infinite;
+}
