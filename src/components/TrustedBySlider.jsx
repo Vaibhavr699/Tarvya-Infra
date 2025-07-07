@@ -208,7 +208,7 @@ const TrustedBySlider = () => {
               }}
             >✓</motion.span>
             <span className="text-gray-700 font-medium">
-              Trusted by 500+ Companies
+              Trusted by 100+ Companies
             </span>
           </motion.div>
         </motion.div>

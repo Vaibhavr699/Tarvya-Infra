@@ -70,7 +70,7 @@ const Header = () => {
   const propertyTypes = [
     { icon: <Building2 className="w-5 h-5" />, label: "Office Spaces", path: "/properties/office" },
     { icon: <ShoppingBag className="w-5 h-5" />, label: "Retail Properties", path: "/properties/retail" },
-    { icon: <Factory className="w-5 h-5" />, label: "Industrial Units", path: "/properties/industrial" }
+    
   ];
 
   const navLinks = [
@@ -107,7 +107,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -166,35 +166,19 @@ const Header = () => {
             </div>
 
             {/* Call to Action */}
-            <div className="flex items-center space-x-2 animate-phone-ring">
-              <PhoneCall className="text-green-600 animate-zoom" />
-              <div className="text-sm font-medium text-gray-800">
-                Talk to Our Expert <br />
-                <a 
-                  href="tel:+918929356475"
-                  className="text-[#1E3A8A] font-bold text-base hover:text-[#1E3A8A] transition-colors"
-                >
-                  +91 8929356475
-                </a>
-              </div>
+            <div className="flex items-center space-x-2 bg-white rounded-xl px-3 py-2 shadow whitespace-nowrap animate-phone-ring">
+              <PhoneCall className="text-green-600 w-5 h-5 animate-zoom" />
+              <a 
+                href="tel:+918929356475"
+                className="text-[#1E3A8A] font-bold text-base hover:text-[#1E3A8A] transition-colors whitespace-nowrap"
+              >
+                +91 8929356475
+              </a>
             </div>
           </nav>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-4">
-            {/* Mobile Call to Action - Moved outside menu */}
-            <div className="hidden sm:flex items-center space-x-2">
-              <PhoneCall className="text-green-600 w-5 h-5" />
-              <div className="text-xs text-gray-800">
-                <a 
-                  href="tel:+918929356475"
-                  className="text-[#1E3A8A] font-bold hover:text-[#1E3A8A] transition-colors"
-                >
-                  +91 8929356475
-                </a>
-              </div>
-            </div>
-
+          <div className="lg:hidden flex items-center space-x-4">
             <button
               onClick={toggleMenu}
               className="p-2 text-gray-700 hover:text-[#1E3A8A] transition-colors"
@@ -213,7 +197,7 @@ const Header = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden mt-4 bg-white rounded-xl shadow-lg overflow-hidden"
+              className="lg:hidden mt-4 bg-white rounded-xl shadow-lg overflow-hidden"
             >
               <nav className="py-2">
                 {navLinks.map((link) => (
@@ -270,13 +254,24 @@ const Header = () => {
                     )}
                   </AnimatePresence>
                 </div>
+
+                {/* Mobile Call to Action */}
+                <div className="flex items-center space-x-2 bg-white rounded-xl px-3 py-2 shadow mx-4 my-2 whitespace-nowrap animate-phone-ring">
+                  <PhoneCall className="text-green-600 w-5 h-5 animate-zoom" />
+                  <a 
+                    href="tel:+918929356475"
+                    className="text-[#1E3A8A] font-bold text-base hover:text-[#1E3A8A] transition-colors whitespace-nowrap"
+                  >
+                    +91 8929356475
+                  </a>
+                </div>
               </nav>
             </motion.div>
           )}
         </AnimatePresence>
 
         {/* Extra Small Screen Call to Action */}
-        <div className="sm:hidden flex justify-end mt-2 px-4">
+        {/* <div className="sm:hidden flex justify-end mt-2 px-4">
           <div className="flex items-center space-x-2 bg-gray-50 rounded-lg p-2">
             <PhoneCall className="text-green-600 w-5 h-5" />
             <div className="text-xs text-gray-800">
@@ -288,7 +283,7 @@ const Header = () => {
               </a>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </header>
   );

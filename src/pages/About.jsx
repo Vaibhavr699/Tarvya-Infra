@@ -4,6 +4,7 @@ import { Building2, Award, Users, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Aniket from '../assets/Aniket.jpg';
 import Vaibhav from '../assets/Vaibhav.jpg';
+import Ankit from '../assets/Ankit.jpg';
 
 const About = () => {
   const stats = [
@@ -127,7 +128,7 @@ const About = () => {
                 name: "Ankit Ojha",
                 position: "PR and Marketing Head",
                 description: "5+ years of experience in real estate development",
-                image: null
+                image: Ankit
               },
               {
                 name: "Aniket Ojha",
