@@ -132,7 +132,7 @@ export const featuredProperties = [
   {
     id: 'supernova',
     title: 'Supernova',
-    location: 'Supernova Plaza, Sector 62, Noida, Uttar Pradesh, India - 201304',
+    location: 'Supernova, Plot No. 5, Sector 94, Noida, Uttar Pradesh, India - 201301',
     type: 'Office Building',
     image: supernova,
     description: "Supernova Plaza is a state-of-the-art commercial complex offering premium office spaces with cutting-edge technology infrastructure and modern amenities.",
@@ -276,7 +276,7 @@ export const featuredProperties = [
     location: 'ATS Tower, Sector 132, Noida, Uttar Pradesh, India - 201304',
     type: 'Office Building',
     image: atsTower, // Make sure you have imported or defined this image
-    description: "ATS Tower is a premium commercial building in Noida’s prime business district, offering modern office spaces with world-class amenities and seamless connectivity.",
+    description: "ATS Tower is a premium commercial building in Noida's prime business district, offering modern office spaces with world-class amenities and seamless connectivity.",
     details: {
       totalBuiltUpArea: '3,50,000 sq.ft',
       typicalFloorPlate: '22,000 sq.ft',
