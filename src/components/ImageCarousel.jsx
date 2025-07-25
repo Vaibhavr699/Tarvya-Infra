@@ -216,21 +216,23 @@ const ImageCarousel = () => {
 
         {/* Navigation Buttons - Keep the same but add disabled state */}
         <motion.button
-          variants={buttonVariants}
-          initial="initial"
-          animate="animate"
-          whileHover={!isTransitioning ? "hover" : {}}
-          onClick={() => !isTransitioning && goToPrev()}
-          className={`absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/40 text-white p-3 rounded-full 
-            backdrop-blur-sm transition-all duration-300 z-10 hover:bg-black/60 focus:outline-none
-            ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}`}
-          disabled={isTransitioning}
-          aria-label="Previous slide"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </motion.button>
+  variants={buttonVariants}
+  initial="initial"
+  animate="animate"
+  whileHover={!isTransitioning ? "hover" : {}}
+  onClick={() => !isTransitioning && goToPrev()}
+  className={`absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/40 text-white p-3 rounded-full 
+    backdrop-blur-sm transition-all duration-300 z-10 hover:bg-black/60 focus:outline-none
+    ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}
+    hidden sm:flex`} // 🔹 This line hides on small screens, shows on >= sm
+  disabled={isTransitioning}
+  aria-label="Previous slide"
+>
+  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+  </svg>
+</motion.button>
+
 
         <motion.button
           variants={buttonVariants}
@@ -240,7 +242,8 @@ const ImageCarousel = () => {
           onClick={() => !isTransitioning && goToNext()}
           className={`absolute top-1/2 right-4 transform -translate-y-1/2 bg-black/40 text-white p-3 rounded-full 
             backdrop-blur-sm transition-all duration-300 z-10 hover:bg-black/60 focus:outline-none
-            ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}`}
+            ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}
+            hidden sm:flex`}
           disabled={isTransitioning}
           aria-label="Next slide"
         >
