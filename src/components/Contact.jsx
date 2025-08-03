@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { toast } from 'react-toastify';
 import { motion } from "framer-motion";
-import { sendEmail, formatContactFormData, initEmailJS } from '../utils/emailjs';
+import { sendFormData, formatContactFormData, testFormspreeConnection } from '../utils/formspree';
 
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Initialize EmailJS when component mounts
+  // Test Formspree connection when component mounts
   useEffect(() => {
-    initEmailJS();
+    // Test Formspree connection
+    testFormspreeConnection().then(result => {
+      if (!result.success) {
+        console.warn('Formspree connection warning:', result.message);
+        toast.warning('Form service is not properly configured. Please contact support.');
+      } else {
+        console.log('Formspree connection test successful');
+      }
+    });
   }, []);
 
   const onSubmit = async (event) => {
@@ -23,14 +31,17 @@ const Contact = () => {
         message: formData.get('message'),
       };
 
-      const templateParams = formatContactFormData(formDataObj);
-      const result = await sendEmail(templateParams);
+      const formattedData = formatContactFormData(formDataObj);
+      const result = await sendFormData(formattedData);
 
       if (result.success) {
         toast.success("Form Submitted Successfully!");
         event.target.reset();
       } else {
         toast.error(result.message || "Failed to send message. Please try again.");
+        if (result.debugInfo) {
+          console.error('Debug info:', result.debugInfo);
+        }
       }
     } catch (error) {
       console.error('Form submission error:', error);

@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import PropertyDetails from "./pages/PropertyDetails";
 import PropertyList from "./components/PropertyList";
+import InteriorWork from "./pages/InteriorWork";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             {/* Main Routes */}
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
+            <Route path="/interior" element={<InteriorWork />} />
             <Route path="/inquire" element={<Contact />} />
             <Route path="/contact" element={<Contact />} />
             

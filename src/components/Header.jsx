@@ -12,7 +12,8 @@ import {
   Factory,
   Home,
   Info,
-  Mail
+  Mail,
+  Sofa
 } from "lucide-react";
 import "./Header.css"; // Custom CSS for animation
 
@@ -76,6 +77,7 @@ const Header = () => {
   const navLinks = [
     { icon: <Home className="w-5 h-5" />, label: "HOME", path: "/" },
     { icon: <Info className="w-5 h-5" />, label: "ABOUT US", path: "/about" },
+    { icon: <Sofa className="w-5 h-5" />, label: "INTERIOR WORK", path: "/interior" },
     { icon: <Mail className="w-5 h-5" />, label: "CONTACT US", path: "/contact" }
   ];
 

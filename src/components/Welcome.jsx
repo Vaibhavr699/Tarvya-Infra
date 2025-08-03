@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import WelcomeImage from "../assets/wlcm-comp.jpg";
-import { Building2, Award, Clock, Shield } from "lucide-react";
+import { Building2, Award, Clock, Shield, Sofa } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Welcome = () => {
@@ -24,6 +24,11 @@ const Welcome = () => {
       icon: <Shield className="w-6 h-6" />,
       title: "Trusted Partner",
       description: "Reliable and transparent service",
+    },
+    {
+      icon: <Sofa className="w-6 h-6" />,
+      title: "Interior Design",
+      description: "Custom furniture and interior solutions",
     },
   ];
 
@@ -104,6 +109,12 @@ const Welcome = () => {
                 Explore Properties
               </Link>
               <Link
+                to="/interior"
+                className="px-8 py-3 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+              >
+                Interior Work
+              </Link>
+              <Link
                 to="/contact"
                 className="px-8 py-3 bg-white text-[#1E3A8A] rounded-lg font-semibold border-2 border-[#1E3A8A] hover:bg-[#1E3A8A] transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
@@ -118,7 +129,7 @@ const Welcome = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {features.map((feature, index) => (
               <motion.div

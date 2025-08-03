@@ -12,24 +12,21 @@ import {
 import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 import Logo from "../assets/logo.png";
-import { sendEmail, formatNewsletterData, initEmailJS } from '../utils/emailjs';
+import { sendFormData, formatNewsletterData } from '../utils/formspree';
 
 const Footer = () => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Initialize EmailJS when component mounts
-  useEffect(() => {
-    initEmailJS();
-  }, []);
+  // No initialization needed for Formspree
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
-      const templateParams = formatNewsletterData(email);
-      const result = await sendEmail(templateParams);
+      const formData = formatNewsletterData(email);
+      const result = await sendFormData(formData);
 
       if (result.success) {
         toast.success("Successfully subscribed to newsletter!");
@@ -250,12 +247,12 @@ const Footer = () => {
             <p className="text-gray-400 text-base ">
               © {currentYear} All rights reserved by{" "}
               <a
-                href="http://frontend-4uhjxzbb0-vaibhav-rajs-projects-6adbbf4e.vercel.app" // replace with your actual link
+                href="#" // replace with your actual link
                 className="text-white hover:text-blue-400 hover:underline transition duration-300 underline"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Vaibhav Raj
+                Tarvya Infra Pvt Ltd
               </a>
               .
             </p>

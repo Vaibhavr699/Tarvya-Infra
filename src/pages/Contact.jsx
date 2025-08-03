@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Send, Building2 } from 'lucide-react';
 import { toast } from 'react-toastify';
-import { sendEmail, formatContactFormData, initEmailJS } from '../utils/emailjs';
+import { sendFormData, formatContactFormData } from '../utils/formspree';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -15,10 +15,7 @@ const Contact = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Initialize EmailJS when component mounts
-  useEffect(() => {
-    initEmailJS();
-  }, []);
+  // No initialization needed for Formspree
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,8 +30,8 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const templateParams = formatContactFormData(formData);
-      const result = await sendEmail(templateParams);
+      const formattedData = formatContactFormData(formData);
+      const result = await sendFormData(formattedData);
 
       if (result.success) {
         toast.success('Thank you for your message! We\'ll get back to you soon.');
