@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
 import Logo from "../assets/logo.png";
+import footerBg from "../assets/building bg2.png";
 import { sendFormData, formatNewsletterData } from '../utils/formspree';
 
 const Footer = () => {
@@ -45,7 +46,20 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[#0f111c] text-gray-300">
+    <footer className="relative text-gray-300 bg-brand-950 overflow-hidden">
+      {/* Building wireframe background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${footerBg})` }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-brand-950/75 via-brand-950/80 to-brand-950/92"
+        aria-hidden="true"
+      />
+
+      {/* Foreground */}
+      <div className="relative z-10">
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -74,7 +88,7 @@ const Footer = () => {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gray-800 p-2 rounded-full hover:bg-[#1E3A8A] transition-colors duration-300"
+                className="bg-gray-800 p-2 rounded-full hover:bg-brand-700 transition-colors duration-300"
                 aria-label="Facebook"
               >
                 <FaFacebookF className="text-white text-lg" />
@@ -83,7 +97,7 @@ const Footer = () => {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gray-800 p-2 rounded-full hover:bg-[#1E3A8A] transition-colors duration-300"
+                className="bg-gray-800 p-2 rounded-full hover:bg-brand-700 transition-colors duration-300"
                 aria-label="Instagram"
               >
                 <FaInstagram className="text-white text-lg" />
@@ -92,7 +106,7 @@ const Footer = () => {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gray-800 p-2 rounded-full hover:bg-[#1E3A8A] transition-colors duration-300"
+                className="bg-gray-800 p-2 rounded-full hover:bg-brand-700 transition-colors duration-300"
                 aria-label="LinkedIn"
               >
                 <FaLinkedinIn className="text-white text-lg" />
@@ -101,7 +115,7 @@ const Footer = () => {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-gray-800 p-2 rounded-full hover:bg-[#1E3A8A] transition-colors duration-300"
+                className="bg-gray-800 p-2 rounded-full hover:bg-brand-700 transition-colors duration-300"
                 aria-label="Twitter"
               >
                 <FaTwitter className="text-white text-lg" />
@@ -118,7 +132,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/"
-                  className="text-gray-400 hover:text-[#1E3A8A] transition-colors duration-300 flex items-center"
+                  className="text-gray-400 hover:text-brand-300 transition-colors duration-300 flex items-center"
                 >
                   <FaArrowRight className="mr-2 text-xs" />
                   Home
@@ -127,7 +141,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/about"
-                  className="text-gray-400 hover:text-[#1E3A8A] transition-colors duration-300 flex items-center"
+                  className="text-gray-400 hover:text-brand-300 transition-colors duration-300 flex items-center"
                 >
                   <FaArrowRight className="mr-2 text-xs" />
                   About Us
@@ -136,7 +150,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/properties"
-                  className="text-gray-400 hover:text-[#1E3A8A] transition-colors duration-300 flex items-center"
+                  className="text-gray-400 hover:text-brand-300 transition-colors duration-300 flex items-center"
                 >
                   <FaArrowRight className="mr-2 text-xs" />
                   All Properties
@@ -145,7 +159,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/properties/office"
-                  className="text-gray-400 hover:text-[#1E3A8A] transition-colors duration-300 flex items-center"
+                  className="text-gray-400 hover:text-brand-300 transition-colors duration-300 flex items-center"
                 >
                   <FaArrowRight className="mr-2 text-xs" />
                   Office Spaces
@@ -154,7 +168,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/properties/retail"
-                  className="text-gray-400 hover:text-[#1E3A8A] transition-colors duration-300 flex items-center"
+                  className="text-gray-400 hover:text-brand-300 transition-colors duration-300 flex items-center"
                 >
                   <FaArrowRight className="mr-2 text-xs" />
                   Retail Properties
@@ -163,7 +177,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/contact"
-                  className="text-gray-400 hover:text-[#1E3A8A] transition-colors duration-300 flex items-center"
+                  className="text-gray-400 hover:text-brand-300 transition-colors duration-300 flex items-center"
                 >
                   <FaArrowRight className="mr-2 text-xs" />
                   Contact Us
@@ -179,26 +193,26 @@ const Footer = () => {
             </h3>
             <ul className="space-y-4">
               <li className="flex items-start space-x-3">
-                <FaMapMarkerAlt className="text-[#1E3A8A] mt-1 flex-shrink-0" />
+                <FaMapMarkerAlt className="text-brand-400 mt-1 flex-shrink-0" />
                 <span className="text-gray-400">
-                  UrbTech Center, Sector 132, Noida, Uttar Pradesh, India -
-                  201304
+                  1420, 14th Floor, Supernova Astralis, Sector 94, Noida,
+                  Uttar Pradesh, India - 201301
                 </span>
               </li>
               <li className="flex items-center space-x-3">
-                <FaPhone className="text-[#1E3A8A] flex-shrink-0" />
+                <FaPhone className="text-brand-400 flex-shrink-0" />
                 <a
                   href="tel:+918929356475"
-                  className="text-gray-400 hover:text-[#1E3A8A] transition-colors duration-300"
+                  className="text-gray-400 hover:text-brand-300 transition-colors duration-300"
                 >
                   +91 8929356475
                 </a>
               </li>
               <li className="flex items-center space-x-3">
-                <FaEnvelope className="text-[#1E3A8A] flex-shrink-0" />
+                <FaEnvelope className="text-brand-400 flex-shrink-0" />
                 <a
                   href="mailto:contact@tarvyainfra.com"
-                  className="text-gray-400 hover:text-[#1E3A8A] transition-colors duration-300"
+                  className="text-gray-400 hover:text-brand-300 transition-colors duration-300"
                 >
                   contact@tarvyainfra.com
                 </a>
@@ -222,14 +236,14 @@ const Footer = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-[#1E3A8A] text-white placeholder-gray-400"
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg focus:outline-none focus:border-brand-500 text-white placeholder-gray-400"
                   required
                 />
               </div>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full bg-[#1E3A8A] text-white py-3 px-6 rounded-lg hover:bg-[#1E3A8A] transition-colors duration-300 font-medium ${
+                className={`w-full bg-brand-800 text-white py-3 px-6 rounded-lg hover:bg-brand-700 transition-colors duration-300 font-medium ${
                   isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
                 }`}
               >
@@ -241,13 +255,13 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
+      <div className="border-t border-white">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-gray-400 text-base ">
+            <p className="text-gray-400 text-sm md:text-base text-center md:text-left">
               © {currentYear} All rights reserved by{" "}
               <a
-                href="#" // replace with your actual link
+                href="#"
                 className="text-white hover:text-blue-400 hover:underline transition duration-300 underline"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -257,28 +271,41 @@ const Footer = () => {
               .
             </p>
 
+            <p className="text-gray-500 text-sm">
+              Developed by{" "}
+              <a
+                href="https://vaibhav-pf-sand.vercel.app/"
+                className="text-gray-300 hover:text-brand-300 hover:underline transition duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Vaibhav Raj
+              </a>
+            </p>
+
             <div className="flex space-x-6 text-sm">
               <Link
                 to="/privacy-policy"
-                className="text-gray-400 hover:text-[#1E3A8A] transition-colors duration-300"
+                className="text-gray-400 hover:text-brand-300 transition-colors duration-300"
               >
                 Privacy Policy
               </Link>
               <Link
                 to="/terms"
-                className="text-gray-400 hover:text-[#1E3A8A] transition-colors duration-300"
+                className="text-gray-400 hover:text-brand-300 transition-colors duration-300"
               >
                 Terms of Service
               </Link>
               <Link
                 to="/sitemap"
-                className="text-gray-400 hover:text-[#1E3A8A] transition-colors duration-300"
+                className="text-gray-400 hover:text-brand-300 transition-colors duration-300"
               >
                 Sitemap
               </Link>
             </div>
           </div>
         </div>
+      </div>
       </div>
     </footer>
   );
