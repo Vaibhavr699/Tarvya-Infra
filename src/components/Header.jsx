@@ -1,21 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import Logo from "../assets/logo.png"; // Update path if needed
-import { 
-  Menu, 
-  X, 
-  PhoneCall, 
-  ChevronDown, 
+import Logo from "../assets/logo.png";
+import {
+  Menu,
+  X,
+  PhoneCall,
+  ChevronDown,
   Building2,
   ShoppingBag,
-  Factory,
   Home,
   Info,
   Mail,
-  Sofa
+  Sofa,
 } from "lucide-react";
-import "./Header.css"; // Custom CSS for animation
+import "./Header.css";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -25,36 +24,26 @@ const Header = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Handle scroll effect
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (propertiesRef.current && !propertiesRef.current.contains(event.target)) {
         setPropertiesOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Close mobile menu and scroll to top when route changes
   useEffect(() => {
     setMenuOpen(false);
     setPropertiesOpen(false);
-    // Scroll to top smoothly
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -63,135 +52,132 @@ const Header = () => {
   const handlePropertyClick = (path) => {
     setPropertiesOpen(false);
     setMenuOpen(false);
-    
-    // Navigate to the property list page with the specific type
     navigate(path);
   };
 
   const propertyTypes = [
     { icon: <Building2 className="w-5 h-5" />, label: "Office Spaces", path: "/properties/office" },
     { icon: <ShoppingBag className="w-5 h-5" />, label: "Retail Properties", path: "/properties/retail" },
-    
   ];
 
   const navLinks = [
     { icon: <Home className="w-5 h-5" />, label: "HOME", path: "/" },
-    { icon: <Info className="w-5 h-5" />, label: "ABOUT US", path: "/about" },
-    { icon: <Sofa className="w-5 h-5" />, label: "INTERIOR WORK", path: "/interior" },
-    { icon: <Mail className="w-5 h-5" />, label: "CONTACT US", path: "/contact" }
+    { icon: <Info className="w-5 h-5" />, label: "ABOUT", path: "/about" },
+    { icon: <Sofa className="w-5 h-5" />, label: "INTERIOR", path: "/interior" },
+    { icon: <Mail className="w-5 h-5" />, label: "CONTACT", path: "/contact" },
   ];
 
   return (
-    <header 
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled 
-          ? "bg-white shadow-lg py-2" 
-          : "bg-gray-100 py-4"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
-          {/* Logo and Site Name */}
-          <Link to="/" className="flex items-center space-x-3 group">
+    <header className="fixed top-0 inset-x-0 z-50 px-3 sm:px-4 pt-3 sm:pt-4">
+      <div
+        className={`max-w-7xl mx-auto rounded-3xl bg-white/95 backdrop-blur-md ring-1 ring-gray-900/[0.06] transition-shadow duration-300 ${
+          scrolled ? "shadow-xl" : "shadow-lg"
+        }`}
+      >
+        <div className="flex items-center justify-between gap-4 px-4 sm:px-6 h-[60px]">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2.5 group shrink-0">
             <motion.img
               src={Logo}
-              alt="Logo"
-              className="h-12 w-12 object-cover"
-              whileHover={{ scale: 1.05 }}
+              alt="Tarvya Infra Logo"
+              className="h-10 w-10 rounded-xl object-cover ring-1 ring-brand-800/10"
+              whileHover={{ scale: 1.06 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             />
-            <div className="text-[#1E3A8A] font-extrabold text-lg leading-tight group-hover:text-[#1E3A8A] transition-colors">
-              TARVYA INFRA <br />
-              <span className="text-xs text-gray-600 font-medium tracking-wide">
-                PVT LTD
+            <div className="leading-none">
+              <div className="font-display font-extrabold text-[15px] text-gray-900 tracking-tight">
+                TARVYA INFRA
+              </div>
+              <span className="block text-[9px] text-gray-400 font-bold tracking-[0.22em] uppercase mt-1">
+                Pvt Ltd
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`flex items-center space-x-1 text-sm font-semibold tracking-wide transition-colors ${
-                  location.pathname === link.path
-                    ? "text-[#1E3A8A]"
-                    : "text-gray-700 hover:text-[#1E3A8A]"
-                }`}
-              >
-                {link.icon}
-                <span>{link.label}</span>
-              </Link>
-            ))}
+          {/* Center nav */}
+          <nav className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link) => {
+              const active = location.pathname === link.path;
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`relative px-3.5 py-2 text-[13px] font-semibold uppercase tracking-wide transition-colors ${
+                    active ? "text-brand-700" : "text-gray-600 hover:text-brand-700"
+                  }`}
+                >
+                  {link.label}
+                  {active && (
+                    <motion.span
+                      layoutId="nav-underline"
+                      className="absolute bottom-0.5 left-3.5 right-3.5 h-0.5 rounded-full bg-brand-600"
+                    />
+                  )}
+                </Link>
+              );
+            })}
 
-            {/* Properties Dropdown */}
+            {/* Properties dropdown */}
             <div className="relative" ref={propertiesRef}>
               <button
                 onClick={toggleProperties}
-                className={`flex items-center space-x-1 text-sm font-semibold tracking-wide transition-colors ${
-                  propertiesOpen ? "text-[#1E3A8A]" : "text-gray-700 hover:text-[#1E3A8A]"
+                className={`flex items-center gap-1 px-3.5 py-2 text-[13px] font-semibold uppercase tracking-wide transition-colors ${
+                  propertiesOpen ? "text-brand-700" : "text-gray-600 hover:text-brand-700"
                 }`}
               >
-                <Building2 className="w-5 h-5" />
                 <span>PROPERTIES</span>
                 <ChevronDown
-                  size={16}
-                  className={`transition-transform duration-200 ${
-                    propertiesOpen ? "rotate-180" : ""
-                  }`}
+                  size={14}
+                  className={`transition-transform duration-200 ${propertiesOpen ? "rotate-180" : ""}`}
                 />
               </button>
 
               <AnimatePresence>
                 {propertiesOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute top-full mt-2 bg-white rounded-xl shadow-lg w-64 overflow-hidden"
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.18 }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-white rounded-2xl shadow-elevated ring-1 ring-gray-900/5 w-60 overflow-hidden p-1.5"
                   >
                     {propertyTypes.map((type) => (
                       <button
                         key={type.path}
                         onClick={() => handlePropertyClick(type.path)}
-                        className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-[#1E3A8A] transition-colors"
+                        className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-gray-700 hover:bg-brand-50 hover:text-brand-700 transition-colors"
                       >
-                        {type.icon}
-                        <span>{type.label}</span>
+                        <span className="text-brand-600">{type.icon}</span>
+                        <span className="font-medium text-sm">{type.label}</span>
                       </button>
                     ))}
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
-
-            {/* Call to Action */}
-            <div className="flex items-center space-x-2 bg-white rounded-xl px-3 py-2 shadow whitespace-nowrap animate-phone-ring">
-              <PhoneCall className="text-green-600 w-5 h-5 animate-zoom" />
-              <a 
-                href="tel:+918929356475"
-                className="text-[#1E3A8A] font-bold text-base hover:text-[#1E3A8A] transition-colors whitespace-nowrap"
-              >
-                +91 8929356475
-              </a>
-            </div>
           </nav>
 
-          {/* Mobile Menu Button */}
-          <div className="lg:hidden flex items-center space-x-4">
+          {/* CTA / mobile toggle */}
+          <div className="flex items-center gap-2 shrink-0">
+            <a
+              href="tel:+918929356475"
+              className="hidden sm:inline-flex items-center gap-2 rounded-full bg-brand-700 text-white px-5 py-2.5 text-sm font-bold shadow-md shadow-brand-700/25 hover:bg-brand-800 hover:-translate-y-0.5 transition-all duration-300 whitespace-nowrap"
+            >
+              <PhoneCall className="w-4 h-4 animate-zoom" />
+              +91 8929356475
+            </a>
+
             <button
               onClick={toggleMenu}
-              className="p-2 text-gray-700 hover:text-[#1E3A8A] transition-colors"
+              className="lg:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl text-gray-700 hover:bg-brand-50 hover:text-brand-700 transition-colors"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
             >
-              {menuOpen ? <X size={24} /> : <Menu size={24} />}
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile menu */}
         <AnimatePresence>
           {menuOpen && (
             <motion.div
@@ -199,37 +185,34 @@ const Header = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden mt-4 bg-white rounded-xl shadow-lg overflow-hidden"
+              className="lg:hidden overflow-hidden border-t border-gray-100"
             >
-              <nav className="py-2">
+              <nav className="p-2">
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
                     to={link.path}
-                    className={`flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-[#1E3A8A] transition-colors ${
-                      location.pathname === link.path ? "bg-gray-50 text-[#1E3A8A]" : ""
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-brand-50 hover:text-brand-700 transition-colors ${
+                      location.pathname === link.path ? "bg-brand-50 text-brand-700" : ""
                     }`}
                   >
                     {link.icon}
-                    <span>{link.label}</span>
+                    <span className="font-medium">{link.label}</span>
                   </Link>
                 ))}
 
-                {/* Mobile Properties Menu */}
-                <div className="border-t border-gray-100">
+                <div className="mt-1 border-t border-gray-100 pt-1">
                   <button
                     onClick={toggleProperties}
-                    className="w-full flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-[#1E3A8A] transition-colors"
+                    className="w-full flex items-center justify-between px-4 py-3 rounded-xl text-gray-700 hover:bg-brand-50 hover:text-brand-700 transition-colors"
                   >
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center gap-3">
                       <Building2 className="w-5 h-5" />
-                      <span>PROPERTIES</span>
+                      <span className="font-medium">PROPERTIES</span>
                     </div>
                     <ChevronDown
                       size={16}
-                      className={`transition-transform duration-200 ${
-                        propertiesOpen ? "rotate-180" : ""
-                      }`}
+                      className={`transition-transform duration-200 ${propertiesOpen ? "rotate-180" : ""}`}
                     />
                   </button>
 
@@ -240,15 +223,15 @@ const Header = () => {
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="bg-gray-50"
+                        className="overflow-hidden"
                       >
                         {propertyTypes.map((type) => (
                           <button
                             key={type.path}
                             onClick={() => handlePropertyClick(type.path)}
-                            className="w-full flex items-center space-x-3 px-8 py-3 text-gray-700 hover:bg-gray-100 hover:text-[#1E3A8A] transition-colors"
+                            className="w-full flex items-center gap-3 pl-10 pr-4 py-3 rounded-xl text-gray-600 hover:bg-brand-50 hover:text-brand-700 transition-colors"
                           >
-                            {type.icon}
+                            <span className="text-brand-600">{type.icon}</span>
                             <span>{type.label}</span>
                           </button>
                         ))}
@@ -257,35 +240,17 @@ const Header = () => {
                   </AnimatePresence>
                 </div>
 
-                {/* Mobile Call to Action */}
-                <div className="flex items-center space-x-2 bg-white rounded-xl px-3 py-2 shadow mx-4 my-2 whitespace-nowrap animate-phone-ring">
-                  <PhoneCall className="text-green-600 w-5 h-5 animate-zoom" />
-                  <a 
-                    href="tel:+918929356475"
-                    className="text-[#1E3A8A] font-bold text-base hover:text-[#1E3A8A] transition-colors whitespace-nowrap"
-                  >
-                    +91 8929356475
-                  </a>
-                </div>
+                <a
+                  href="tel:+918929356475"
+                  className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-brand-700 text-white px-5 py-3 text-sm font-bold"
+                >
+                  <PhoneCall className="w-4 h-4" />
+                  +91 8929356475
+                </a>
               </nav>
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Extra Small Screen Call to Action */}
-        {/* <div className="sm:hidden flex justify-end mt-2 px-4">
-          <div className="flex items-center space-x-2 bg-gray-50 rounded-lg p-2">
-            <PhoneCall className="text-green-600 w-5 h-5" />
-            <div className="text-xs text-gray-800">
-              <a 
-                href="tel:+918929356475"
-                className="text-[#1E3A8A] font-bold hover:text-[#1E3A8A] transition-colors"
-              >
-                +91 8929356475
-              </a>
-            </div>
-          </div>
-        </div> */}
       </div>
     </header>
   );
