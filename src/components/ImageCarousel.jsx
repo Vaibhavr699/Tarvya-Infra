@@ -1,299 +1,142 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useSwipeable } from "react-swipeable";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-
-import img1 from "../assets/img1.jpg";
-import img2 from "../assets/img2.jpg";
-import img3 from "../assets/img3.jpg";
-import img4 from "../assets/img4.jpg";
-import img5 from "../assets/img5.jpg";
+import { ArrowRight, Building2, CalendarCheck } from "lucide-react";
+import heroImage from "../assets/hero image.png";
+import assotech from "../assets/Assotech.jpg";
+import atstower from "../assets/atstower.jpg";
+import atsb from "../assets/atsb.jpg";
+import opus from "../assets/opus.webp";
+import maxSquare from "../assets/max.jpg";
 import img6 from "../assets/img6.jpg";
 import img7 from "../assets/img7.jpg";
-import img8 from "../assets/img8.jpg";
 
-const slides = [
-  {
-    image: img1,
-    title: "Premium Office Spaces",
-    subtitle: "Find your perfect business location"
-  },
-  {
-    image: img2,
-    title: "Strategic Retail Locations",
-    subtitle: "Maximize your business visibility"
-  },
-  {
-    image: img3,
-    title: "Modern Industrial Units",
-    subtitle: "State-of-the-art facilities for your operations"
-  },
-  {
-    image: img4,
-    title: "Prime Commercial Properties",
-    subtitle: "Invest in prime real estate locations"
-  },
-  {
-    image: img5,
-    title: "Flexible Workspace Solutions",
-    subtitle: "Adaptable spaces for growing businesses"
-  },
-  {
-    image: img6,
-    title: "Exclusive Business Centers",
-    subtitle: "Premium locations for established enterprises"
-  },
-  {
-    image: img7,
-    title: "Innovative Commercial Hubs",
-    subtitle: "Be part of the next business district"
-  },
-  {
-    image: img8,
-    title: "Future-Ready Properties",
-    subtitle: "Spaces designed for tomorrow's businesses"
-  }
-];
+// Images cycled in the hero frame — add or reorder freely.
+const heroImages = [heroImage, assotech, atstower, atsb, opus, maxSquare, img6, img7];
 
 const ImageCarousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [index, setIndex] = useState(0);
 
-  const goToPrev = useCallback(() => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setDirection(-1);
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? slides.length - 1 : prevIndex - 1
-    );
-    setTimeout(() => setIsTransitioning(false), 1000);
-  }, [isTransitioning]);
-
-  const goToNext = useCallback(() => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setDirection(1);
-    setCurrentIndex((prevIndex) =>
-      prevIndex === slides.length - 1 ? 0 : prevIndex + 1
-    );
-    setTimeout(() => setIsTransitioning(false), 1000);
-  }, [isTransitioning]);
-
-  const goToSlide = useCallback((index) => {
-    if (isTransitioning || index === currentIndex) return;
-    setIsTransitioning(true);
-    setDirection(index > currentIndex ? 1 : -1);
-    setCurrentIndex(index);
-    setTimeout(() => setIsTransitioning(false), 1000);
-  }, [currentIndex, isTransitioning]);
-
+  // Auto-advance the hero image every 4 seconds (no controls, just a crossfade).
   useEffect(() => {
-    if (!isAutoPlaying || isTransitioning) return;
-    
-    const interval = setInterval(() => {
-      goToNext();
-    }, 4000); // Increased to 4 seconds for slower transitions
-    
-    return () => clearInterval(interval);
-  }, [goToNext, isAutoPlaying, isTransitioning]);
+    const t = setInterval(() => {
+      setIndex((i) => (i + 1) % heroImages.length);
+    }, 4000);
+    return () => clearInterval(t);
+  }, []);
 
-  const handlers = useSwipeable({
-    onSwipedLeft: () => {
-      if (!isTransitioning) {
-        setIsAutoPlaying(false);
-        goToNext();
-      }
-    },
-    onSwipedRight: () => {
-      if (!isTransitioning) {
-        setIsAutoPlaying(false);
-        goToPrev();
-      }
-    },
-    preventScrollOnSwipe: true,
-    trackMouse: true,
-  });
-
-  const slideVariants = {
-    enter: (direction) => ({
-      x: direction > 0 ? "100%" : "-100%",
-      opacity: 0,
-      transition: {
-        x: { type: "tween", duration: 0.8, ease: "easeInOut" },
-        opacity: { duration: 0.4 }
-      }
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        x: { type: "tween", duration: 0.8, ease: "easeInOut" },
-        opacity: { duration: 0.4 }
-      }
-    },
-    exit: (direction) => ({
-      x: direction < 0 ? "100%" : "-100%",
-      opacity: 0,
-      transition: {
-        x: { type: "tween", duration: 0.8, ease: "easeInOut" },
-        opacity: { duration: 0.4 }
-      }
-    })
-  };
-
-  const textVariants = {
-    enter: {
-      opacity: 0,
-      y: 30,
-      transition: { duration: 0.6, ease: "easeOut" }
-    },
-    center: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut", delay: 0.2 }
-    },
-    exit: {
-      opacity: 0,
-      y: -30,
-      transition: { duration: 0.6, ease: "easeIn" }
-    }
-  };
-
-  const buttonVariants = {
-    initial: { opacity: 0, scale: 0.8 },
-    animate: { opacity: 1, scale: 1 },
-    hover: { scale: 1.1, backgroundColor: "rgba(0, 0, 0, 0.6)" }
-  };
+  const current = heroImages[index];
 
   return (
-    <div className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden bg-black">
-      <div className="absolute inset-0" {...handlers}>
-        <AnimatePresence initial={false} custom={direction} mode="sync">
+    <section className="relative bg-white">
+      {/* Faint top-left tint */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-brand-50/70 via-white to-white" />
+
+      {/* Right bleed image (desktop) */}
+      <div className="hidden lg:block absolute top-0 right-0 bottom-0 w-1/2 xl:w-[52%]">
+        <AnimatePresence>
+          <motion.img
+            key={index}
+            src={current}
+            alt="Premium commercial building"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1, ease: "easeInOut" }}
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-brand-950/5" />
+        {/* White curved divider on the left edge of the image */}
+        <svg
+          className="absolute inset-y-0 -left-px h-full w-[16%] min-w-[90px] text-white"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M100,0 C42,20 42,80 100,100 L0,100 L0,0 Z" />
+        </svg>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-32 pb-12 md:pb-20">
+        <div className="grid lg:grid-cols-2 gap-12 items-center lg:min-h-[calc(100vh_-_12rem)]">
           <motion.div
-            key={currentIndex}
-            custom={direction}
-            variants={slideVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="absolute inset-0"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="max-w-xl"
           >
-            <img
-              src={slides[currentIndex].image}
-              alt={`Slide ${currentIndex + 1}`}
-              className="w-full h-full object-cover"
-            />
-            
-            {/* Animated Text Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60">
-              <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-6">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentIndex}
-                    variants={textVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    className="max-w-4xl"
-                  >
-                    <motion.h1 
-                      className="text-3xl sm:text-5xl md:text-[80px] font-bold text-white drop-shadow-lg mb-4"
-                    >
-                      {slides[currentIndex].title}
-                    </motion.h1>
-                    <motion.p 
-                      className="text-xl md:text-2xl text-white/90 font-light drop-shadow-md"
-                    >
-                      {slides[currentIndex].subtitle}
-                    </motion.p>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+            {/* Headline */}
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-[2.6rem] font-extrabold leading-[1.12] tracking-[-0.02em] text-gray-900">
+              Your Trusted Partner in{" "}
+              <span className="relative inline-block text-brand-700">
+                Commercial Real Estate
+                <svg
+                  className="absolute -bottom-2 left-0 w-full text-brand-500"
+                  height="12"
+                  viewBox="0 0 320 12"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M3 8.5C70 3 250 2.5 317 6"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
+            </h1>
+
+            {/* Paragraph with accent bar */}
+            <p className="mt-8 border-l-4 border-brand-600 pl-5 text-lg text-gray-600 leading-relaxed">
+              We deliver premium commercial spaces that empower businesses to grow.
+              Discover office, retail, and industrial properties in prime locations,
+              designed for your success.
+            </p>
+
+            {/* Buttons */}
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Link to="/properties" className="btn-primary">
+                <Building2 className="w-5 h-5" />
+                Explore Properties
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link to="/contact" className="btn-outline">
+                <CalendarCheck className="w-5 h-5" />
+                Book Consultation
+              </Link>
             </div>
           </motion.div>
-        </AnimatePresence>
 
-        {/* Navigation Buttons - Keep the same but add disabled state */}
-        <motion.button
-  variants={buttonVariants}
-  initial="initial"
-  animate="animate"
-  whileHover={!isTransitioning ? "hover" : {}}
-  onClick={() => !isTransitioning && goToPrev()}
-  className={`absolute top-1/2 left-4 transform -translate-y-1/2 bg-black/40 text-white p-3 rounded-full 
-    backdrop-blur-sm transition-all duration-300 z-10 hover:bg-black/60 focus:outline-none
-    ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}
-    hidden sm:flex`} // 🔹 This line hides on small screens, shows on >= sm
-  disabled={isTransitioning}
-  aria-label="Previous slide"
->
-  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-  </svg>
-</motion.button>
-
-
-        <motion.button
-          variants={buttonVariants}
-          initial="initial"
-          animate="animate"
-          whileHover={!isTransitioning ? "hover" : {}}
-          onClick={() => !isTransitioning && goToNext()}
-          className={`absolute top-1/2 right-4 transform -translate-y-1/2 bg-black/40 text-white p-3 rounded-full 
-            backdrop-blur-sm transition-all duration-300 z-10 hover:bg-black/60 focus:outline-none
-            ${isTransitioning ? 'opacity-50 cursor-not-allowed' : ''}
-            hidden sm:flex`}
-          disabled={isTransitioning}
-          aria-label="Next slide"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </motion.button>
-
-        {/* Dots Navigation - Keep the same but add disabled state */}
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10">
-          {slides.map((_, index) => (
-            <motion.button
-              key={index}
-              onClick={() => !isTransitioning && goToSlide(index)}
-              whileHover={!isTransitioning ? { scale: 1.2 } : {}}
-              whileTap={!isTransitioning ? { scale: 0.9 } : {}}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentIndex 
-                  ? "bg-white scale-125" 
-                  : "bg-white/50 hover:bg-white/75"
-              } ${isTransitioning ? 'cursor-not-allowed' : ''}`}
-              disabled={isTransitioning}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
+          {/* Mobile image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+            className="lg:hidden"
+          >
+            <div className="relative h-[280px] sm:h-[380px] rounded-2xl overflow-hidden shadow-elevated ring-1 ring-gray-900/5">
+              <AnimatePresence>
+                <motion.img
+                  key={index}
+                  src={current}
+                  alt="Premium commercial building"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1, ease: "easeInOut" }}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </AnimatePresence>
+            </div>
+          </motion.div>
         </div>
-
-        {/* Auto-play Indicator - Keep the same */}
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          whileHover={{ scale: 1.1 }}
-          onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-          className="absolute top-4 right-4 bg-black/40 text-white p-2 rounded-full 
-            backdrop-blur-sm transition-all duration-300 z-10 hover:bg-black/60"
-          aria-label={isAutoPlaying ? "Pause slideshow" : "Play slideshow"}
-        >
-          {isAutoPlaying ? (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          ) : (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          )}
-        </motion.button>
       </div>
-    </div>
+    </section>
   );
 };
 
