@@ -1,185 +1,150 @@
 import { motion } from "framer-motion";
-import WelcomeImage from "../assets/wlcm-comp.jpg";
-import { Building2, Award, Clock, Shield, Sofa } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Building2, Users, Handshake, LayoutGrid, ArrowRight } from "lucide-react";
+import welcomeBg from "../assets/building bg white.png";
+import featuredImg from "../assets/img7.jpg";
+import listingsImg from "../assets/atstower.jpg";
 
 const Welcome = () => {
-  const features = [
-    {
-      icon: <Building2 className="w-6 h-6" />,
-      title: "Premium Properties",
-      description: "Exclusive commercial spaces in prime locations",
-    },
-    {
-      icon: <Award className="w-6 h-6" />,
-      title: "Expert Guidance",
-      description: "Professional real estate consultation",
-    },
-    {
-      icon: <Clock className="w-6 h-6" />,
-      title: "Timely Delivery",
-      description: "Commitment to project timelines",
-    },
-    {
-      icon: <Shield className="w-6 h-6" />,
-      title: "Trusted Partner",
-      description: "Reliable and transparent service",
-    },
-    {
-      icon: <Sofa className="w-6 h-6" />,
-      title: "Interior Design",
-      description: "Custom furniture and interior solutions",
-    },
-  ];
-
   return (
-    <section className="relative min-h-[80vh] bg-gray-100 overflow-hidden">
-      {/* Background Image with Overlay */}
+    <section className="relative bg-white py-10 md:py-12 overflow-hidden">
+      {/* Building wireframe backdrop */}
       <div
-        className="absolute inset-0 bg-cover bg-center z-0"
-        style={{
-          backgroundImage: `url(${WelcomeImage})`,
-          opacity: 0.1,
-        }}
+        className="absolute inset-0 bg-cover bg-bottom bg-no-repeat opacity-90"
+        style={{ backgroundImage: `url(${welcomeBg})` }}
+        aria-hidden="true"
+      />
+      {/* Soft top fade so the heading stays crisp */}
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-white via-white/40 to-transparent"
+        aria-hidden="true"
       />
 
-      {/* Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-20 md:py-32">
-        {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column - Text Content */}
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            viewport={{ once: true }}
-            className="text-left space-y-8"
-          >
-            <div className="space-y-4">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                viewport={{ once: true }}
-                className="text-[#1E3A8A] font-semibold text-lg tracking-wider uppercase"
-              >
-                Welcome to Excellence
-              </motion.h2>
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                viewport={{ once: true }}
-                className="font-poppins text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-800"
-              >
-                Your Trusted Partner in{" "}
-                <span className="text-[#1E3A8A]">Commercial Real Estate</span>
-              </motion.h1>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              viewport={{ once: true }}
-              className="space-y-4"
-            >
-              <p className="font-roboto text-lg text-gray-600 leading-relaxed">
-                Tarvya Infra offers prime commercial spaces designed to fuel your
-                business growth with transparency and timely delivery.
-              </p>
-              <p className="font-roboto text-lg text-gray-600 leading-relaxed">
-                Discover trusted office, retail, and industrial properties
-                tailored to your goals — unlocking your next commercial
-                investment with confidence.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              viewport={{ once: true }}
-              className="flex flex-wrap gap-4"
-            >
-              <Link
-                to="/properties"
-                className="px-8 py-3 bg-[#1E3A8A] text-white rounded-lg font-semibold hover:bg-[#1E3A8A] transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-              >
-                Explore Properties
-              </Link>
-              <Link
-                to="/interior"
-                className="px-8 py-3 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-              >
-                Interior Work
-              </Link>
-              <Link
-                to="/contact"
-                className="px-8 py-3 bg-white text-[#1E3A8A] rounded-lg font-semibold border-2 border-[#1E3A8A] hover:bg-[#1E3A8A] transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
-              >
-                Contact Us
-              </Link>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Column - Features Grid */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1"
-              >
-                <div className="text-[#1E3A8A] mb-4">{feature.icon}</div>
-                <h3 className="font-semibold text-lg text-gray-800 mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  {feature.description}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Trust Indicators */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
+          className="max-w-3xl mb-12"
         >
-          <div className="space-y-2">
-            <div className="text-3xl font-bold text-[#1E3A8A]">1000+</div>
-            <div className="text-gray-600">Properties Listed</div>
-          </div>
-          <div className="space-y-2">
-            <div className="text-3xl font-bold text-[#1E3A8A]">500+</div>
-            <div className="text-gray-600">Happy Clients</div>
-          </div>
-          <div className="space-y-2">
-            <div className="text-3xl font-bold text-[#1E3A8A]">5+</div>
-            <div className="text-gray-600">Years Experience</div>
-          </div>
-          <div className="space-y-2">
-            <div className="text-3xl font-bold text-[#1E3A8A]">24/7</div>
-            <div className="text-gray-600">Support Available</div>
-          </div>
+          <h2 className="mt-6 font-display text-4xl md:text-5xl font-bold leading-[1.1] tracking-[-0.02em] text-gray-900">
+            Why <span className="text-brand-700">Tarvya Infra</span> is the right choice for you ?
+          </h2>
+        </motion.div>
+
+        {/* Bento grid */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+        >
+          {/* Card 1 — Premium Properties */}
+          <BentoCard
+            icon={<Building2 className="w-6 h-6" />}
+            title="Premium Properties"
+            description="Exclusive office, retail & industrial spaces in Noida's prime business districts."
+          />
+
+          {/* Card 2 — Expert Guidance */}
+          <BentoCard
+            icon={<Users className="w-6 h-6" />}
+            title="Expert Guidance"
+            description="Advisors who know the local commercial market inside out, guiding every decision."
+          />
+
+          {/* Card 3 — Featured (tall, dark, image background) */}
+          <motion.div
+            variants={cardVariants}
+            className="relative lg:row-span-2 rounded-3xl bg-brand-900 ring-1 ring-white/5 overflow-hidden"
+          >
+            <img
+              src={featuredImg}
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover opacity-25"
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-gradient-to-b from-brand-900/85 via-brand-900/90 to-brand-900/95"
+            />
+
+            <div className="relative z-10 flex flex-col h-full p-8 text-white">
+              <div className="grid place-items-center h-12 w-12 rounded-full ring-1 ring-white/25 text-white">
+                <Handshake className="w-6 h-6" />
+              </div>
+              <h3 className="mt-7 text-2xl font-bold leading-snug text-white">
+                End-to-End Partnership
+              </h3>
+              <div className="mt-5 space-y-4 text-white/80 leading-relaxed">
+                <p>
+                  From the first site visit to the final hand-over, we manage negotiations,
+                  paperwork, and documentation — so you can focus on your business while we
+                  handle the details.
+                </p>
+                <p>
+                  Whether you're leasing a single floor or an entire tower, we tailor the
+                  process to fit your needs.
+                </p>
+              </div>
+              <Link
+                to="/contact"
+                className="mt-8 w-fit inline-flex items-center gap-2 rounded-full bg-accent-500 px-6 py-3 font-semibold text-white shadow-accent-glow transition-all duration-300 hover:bg-accent-600 hover:-translate-y-0.5"
+              >
+                Book a Consultation
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Card 4 — Wide (text + image) */}
+          <motion.div
+            variants={cardVariants}
+            className="lg:col-span-2 rounded-3xl bg-gray-100 p-6 sm:p-8"
+          >
+            <div className="grid md:grid-cols-2 gap-6 items-center h-full">
+              <div>
+                <div className="grid place-items-center h-12 w-12 rounded-full ring-1 ring-gray-300 text-gray-700">
+                  <LayoutGrid className="w-6 h-6" />
+                </div>
+                <h3 className="mt-7 text-2xl font-bold text-gray-900">100+ Premium Listings</h3>
+                <p className="mt-4 text-gray-600 leading-relaxed">
+                  Browse a curated portfolio of verified Grade-A commercial properties across
+                  Noida — from compact offices to full-floor corporate spaces. Every listing is
+                  checked for accuracy, so what you see is exactly what you get.
+                </p>
+              </div>
+              <div className="relative h-44 md:h-56 rounded-2xl overflow-hidden ring-1 ring-gray-900/5">
+                <img
+                  src={listingsImg}
+                  alt="Commercial buildings in Noida"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
   );
 };
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
+const BentoCard = ({ icon, title, description }) => (
+  <motion.div variants={cardVariants} className="rounded-3xl bg-gray-100 p-8">
+    <div className="grid place-items-center h-12 w-12 rounded-full ring-1 ring-gray-300 text-gray-700">
+      {icon}
+    </div>
+    <h3 className="mt-7 text-2xl font-bold text-gray-900">{title}</h3>
+    <p className="mt-4 text-gray-600 leading-relaxed">{description}</p>
+  </motion.div>
+);
 
 export default Welcome;

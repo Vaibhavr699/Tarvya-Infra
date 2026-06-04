@@ -7,16 +7,18 @@ import InteriorSection from '../components/InteriorSection';
 import Contact from '../components/Contact';
 import FeaturedProperties from '../components/FeaturedProperties';
 import TrustedBySlider from '../components/TrustedBySlider';
+import StatsBar from '../components/StatsBar';
 
 const Home = () => {
   return (
     <div>
       <ImageCarousel />
+      <TrustedBySlider/>
       <Welcome/>
       <PropertySection/>
-      <InteriorSection/>
       <FeaturedProperties/>
-      <TrustedBySlider/>
+      <InteriorSection/>
+      <StatsBar/>
     </div>
   );
 };

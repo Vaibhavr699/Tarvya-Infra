@@ -1,6 +1,6 @@
 // src/components/FeaturedProperties.jsx
 import { Link } from "react-router-dom";
-import { MapPin, Building2, ArrowRight, Star } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 // Import images from assets
@@ -342,11 +342,12 @@ const FeaturedProperties = () => {
   };
 
   return (
-    <section className="py-16 px-4 bg-gray-50">
+    <section className="py-20 md:py-28 px-4 sm:px-6 lg:px-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Featured Properties
+        <div className="text-center mb-14">
+          <span className="eyebrow mb-4">Handpicked Listings</span>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-5">
+            Featured <span className="accent-underline text-brand-800">Properties</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Discover our premium selection of commercial properties, each
@@ -355,73 +356,45 @@ const FeaturedProperties = () => {
         </div>
 
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {featuredProperties.map((property) => (
-            <motion.div
-              key={property.id}
-              variants={itemVariants}
-              whileHover={{ y: -5 }}
-            >
-              <Link
-                to={`/property/${property.id}`}
-                className="block rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 bg-white group h-[500px] flex flex-col"
-              >
-                <div className="relative">
-                  <img
-                    src={property.image}
-                    alt={property.title}
-                    className="w-full h-56 object-cover transform group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          {featuredProperties.map((property) => {
+            const sector = property.location
+              .split(",")
+              .map((s) => s.trim())
+              .find((p) => /sector/i.test(p));
+            const area = sector ? `${sector}, Noida` : "Noida, Uttar Pradesh";
 
-                  {property.featured && (
-                    <span className="absolute top-3 left-3 bg-red-600 text-white text-sm font-semibold px-3 py-1 rounded-full">
-                      Featured
-                    </span>
-                  )}
-
-                  <div className="absolute top-3 right-3 flex items-center gap-1 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-full">
-                    <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                    <span className="text-sm font-semibold">
-                      {property.rating}
-                    </span>
+            return (
+              <motion.div key={property.id} variants={itemVariants}>
+                <Link to={`/property/${property.id}`} className="group block">
+                  <div className="relative overflow-hidden rounded-2xl ring-1 ring-gray-900/[0.06] shadow-sm">
+                    <img
+                      src={property.image}
+                      alt={property.title}
+                      className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
                   </div>
-                </div>
 
-                <div className="p-6 flex flex-col flex-grow">
-                  <div className="flex-grow">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-[#1E3A8A] transition-colors line-clamp-2">
-                      {property.title}
-                    </h3>
-
-                    <div className="flex items-center gap-2 text-gray-600 mb-3">
-                      <MapPin className="w-4 h-4 flex-shrink-0" />
-                      <span className="text-sm line-clamp-1">
-                        {property.location}
-                      </span>
+                  <div className="mt-4 flex items-center justify-between gap-4">
+                    <div className="min-w-0">
+                      <h3 className="text-lg font-bold text-gray-900 truncate transition-colors group-hover:text-brand-700">
+                        {property.title}
+                      </h3>
+                      <p className="mt-0.5 text-sm text-gray-500 truncate">{area}</p>
                     </div>
-
-                    <div className="flex items-center gap-2 text-gray-600 mb-4">
-                      <Building2 className="w-4 h-4 flex-shrink-0" />
-                      <span className="text-sm">{property.type}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
-                    <span className="text-[#1E3A8A] font-semibold">
-                      View Details
+                    <span className="grid place-items-center h-11 w-11 shrink-0 rounded-2xl bg-white text-gray-700 ring-1 ring-gray-200 shadow-sm transition-all duration-300 group-hover:bg-brand-700 group-hover:text-white group-hover:ring-brand-700 group-hover:-translate-y-0.5">
+                      <ArrowRight className="w-5 h-5" />
                     </span>
-                    <ArrowRight className="w-5 h-5 text-[#1E3A8A] transform group-hover:translate-x-1 transition-transform" />
                   </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
+                </Link>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
         {/* View All Properties Button */}
@@ -430,14 +403,11 @@ const FeaturedProperties = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mt-12"
+          className="text-center mt-14"
         >
-          <Link
-            to="/properties"
-            className="inline-flex items-center px-8 py-4 bg-[#1E3A8A] text-white rounded-lg hover:bg-[#1E3A8A] transition-colors duration-300 font-semibold text-lg"
-          >
+          <Link to="/properties" className="btn-primary">
             View All Properties
-            <ArrowRight className="ml-2 w-6 h-6" />
+            <ArrowRight className="w-5 h-5" />
           </Link>
         </motion.div>
       </div>
