@@ -14,7 +14,7 @@
 //   it now uses Web3Forms under the hood.)
 // ============================================================================
 
-export const WEB3FORMS_ACCESS_KEY = "9a86b3d3-8589-4875-82b4-a695a5f468f9";
+export const WEB3FORMS_ACCESS_KEY = "a5440d93-d731-4ce4-a128-cc3e380a28f3";
 
 const ENDPOINT = "https://api.web3forms.com/submit";
 
