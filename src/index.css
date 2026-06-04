@@ -1,16 +1,144 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Press+Start+2P&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Sora:wght@300..800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Fix for EmailJS container position warning */
-#root {
-  position: relative;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply font-sans text-gray-600 bg-white antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5 {
+    @apply font-display text-gray-900;
+    letter-spacing: -0.01em;
+  }
+
+  ::selection {
+    @apply bg-brand-800 text-white;
+  }
+
+  /* Refined scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-brand-800/30 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-brand-800/50;
+  }
+
+  /* Fix for EmailJS container position warning */
+  #root {
+    position: relative;
+  }
+
+  form {
+    position: relative;
+  }
 }
 
-/* Ensure forms have proper positioning */
-form {
-  position: relative;
-}
+@layer components {
+  /* ---------- Buttons ---------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3 text-base font-semibold
+      transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+      disabled:opacity-60 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply btn bg-brand-800 text-white shadow-brand-glow
+      hover:bg-brand-900 hover:-translate-y-0.5 hover:shadow-elevated focus-visible:ring-brand-700;
+  }
+  .btn-outline {
+    @apply btn border-2 border-brand-800 text-brand-800 bg-transparent
+      hover:bg-brand-800 hover:text-white hover:-translate-y-0.5 focus-visible:ring-brand-700;
+  }
+  .btn-ghost {
+    @apply btn bg-white text-brand-800 shadow-soft
+      hover:shadow-card hover:-translate-y-0.5 focus-visible:ring-brand-700;
+  }
+  .btn-accent {
+    @apply btn bg-accent-600 text-white shadow-accent-glow
+      hover:bg-accent-700 hover:-translate-y-0.5 hover:shadow-elevated focus-visible:ring-accent-500;
+  }
+  .btn-accent-outline {
+    @apply btn border-2 border-accent-600 text-accent-600 bg-transparent
+      hover:bg-accent-600 hover:text-white hover:-translate-y-0.5 focus-visible:ring-accent-500;
+  }
 
+  /* ---------- Cards ---------- */
+  .card {
+    @apply rounded-2xl bg-white shadow-card ring-1 ring-gray-900/[0.06] transition-all duration-300;
+  }
+  .card-hover {
+    @apply hover:-translate-y-1.5 hover:shadow-elevated hover:ring-brand-800/10;
+  }
+
+  /* Icon chip used on feature/service cards */
+  .icon-chip {
+    @apply inline-flex h-12 w-12 items-center justify-center rounded-xl
+      bg-brand-50 text-brand-800 ring-1 ring-brand-800/10 transition-colors duration-300;
+  }
+  .icon-chip-accent {
+    @apply inline-flex h-12 w-12 items-center justify-center rounded-xl
+      bg-accent-50 text-accent-600 ring-1 ring-accent-600/10 transition-colors duration-300;
+  }
+
+  /* ---------- Typography helpers ---------- */
+  .eyebrow {
+    @apply inline-block text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-brand-700;
+  }
+  .eyebrow-accent {
+    @apply inline-block text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-accent-600;
+  }
+  .heading-xl {
+    @apply font-display text-4xl md:text-5xl font-bold leading-[1.1] text-gray-900;
+  }
+  .text-gradient {
+    @apply bg-gradient-to-r from-brand-700 to-brand-900 bg-clip-text text-transparent;
+  }
+
+  /* Decorative underline accent under a highlighted word */
+  .accent-underline {
+    @apply relative inline-block;
+  }
+  .accent-underline::after {
+    content: "";
+    @apply absolute -bottom-1.5 left-0 h-[3px] w-full rounded-full bg-brand-700/80;
+  }
+
+  /* ---------- Layout helpers ---------- */
+  .section {
+    @apply py-20 md:py-28;
+  }
+  .container-tight {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Hide scrollbar (used by the hero thumbnail strip) */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Form inputs */
+  .field {
+    @apply w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-gray-800
+      placeholder-gray-400 transition-colors duration-200
+      focus:outline-none focus:border-brand-700 focus:ring-2 focus:ring-brand-700/20;
+  }
+}
