@@ -1,46 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Sofa, 
-  Bed, 
-  Table, 
-  Armchair, 
-  Lamp, 
-  Palette, 
-  Ruler, 
+import { toast } from 'react-toastify';
+import { sendFormData, formatInteriorInquiryData } from '../utils/formspree';
+import {
+  Sofa,
+  Bed,
+  Table,
+  Armchair,
+  Palette,
+  Ruler,
   Users,
   Star,
   Phone,
   Mail,
-  MapPin
+  MapPin,
 } from 'lucide-react';
 
 const InteriorWork = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    const fd = new FormData(e.target);
+    const result = await sendFormData(
+      formatInteriorInquiryData({
+        name: fd.get("name"),
+        email: fd.get("email"),
+        projectType: fd.get("project_type"),
+        message: fd.get("message"),
+        botcheck: fd.get("botcheck"),
+      })
+    );
+    if (result.success) {
+      toast.success(result.message);
+      e.target.reset();
+    } else {
+      toast.error(result.message);
+    }
+    setIsSubmitting(false);
+  };
+
   const services = [
     {
-      icon: <Sofa className="w-8 h-8" />,
+      icon: <Sofa className="w-7 h-7" />,
       title: "Living Room Design",
       description: "Transform your living space with custom furniture and elegant designs",
-      features: ["Custom Sofa Sets", "TV Units", "Coffee Tables", "Accent Chairs"]
+      features: ["Custom Sofa Sets", "TV Units", "Coffee Tables", "Accent Chairs"],
     },
     {
-      icon: <Bed className="w-8 h-8" />,
+      icon: <Bed className="w-7 h-7" />,
       title: "Bedroom Solutions",
       description: "Create your perfect sanctuary with our bedroom furniture collection",
-      features: ["Bed Frames", "Wardrobes", "Dressers", "Nightstands"]
+      features: ["Bed Frames", "Wardrobes", "Dressers", "Nightstands"],
     },
     {
-      icon: <Table className="w-8 h-8" />,
+      icon: <Table className="w-7 h-7" />,
       title: "Dining & Kitchen",
       description: "Functional and stylish dining solutions for your home",
-      features: ["Dining Tables", "Kitchen Cabinets", "Bar Stools", "Storage Units"]
+      features: ["Dining Tables", "Kitchen Cabinets", "Bar Stools", "Storage Units"],
     },
     {
-      icon: <Armchair className="w-8 h-8" />,
+      icon: <Armchair className="w-7 h-7" />,
       title: "Office Furniture",
       description: "Professional workspace solutions for productivity and comfort",
-      features: ["Office Desks", "Ergonomic Chairs", "Storage Cabinets", "Conference Tables"]
-    }
+      features: ["Office Desks", "Ergonomic Chairs", "Storage Cabinets", "Conference Tables"],
+    },
   ];
 
   const projects = [
@@ -49,72 +74,100 @@ const InteriorWork = () => {
       location: "Sector 62, Noida",
       area: "1200 sq ft",
       duration: "45 days",
-      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500"
+      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500",
     },
     {
       title: "Luxury Villa Design",
       location: "Sector 140, Noida",
       area: "3500 sq ft",
       duration: "90 days",
-      image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=500"
+      image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=500",
     },
     {
       title: "Corporate Office Interior",
       location: "Sector 18, Noida",
       area: "5000 sq ft",
       duration: "60 days",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=500"
-    }
+      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=500",
+    },
+  ];
+
+  const whyChoose = [
+    {
+      icon: <Users className="w-7 h-7" />,
+      title: "Expert Team",
+      description: "Our experienced designers and craftsmen ensure quality and attention to detail",
+    },
+    {
+      icon: <Palette className="w-7 h-7" />,
+      title: "Custom Design",
+      description: "Personalized solutions tailored to your style, space, and requirements",
+    },
+    {
+      icon: <Star className="w-7 h-7" />,
+      title: "Quality Assurance",
+      description: "Premium materials and craftsmanship guaranteed for lasting beauty",
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-red-50 to-red-100">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 bg-gradient-to-r from-red-900 via-red-800 to-red-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative pt-36 pb-24 bg-accent-gradient text-white overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(50%_60%_at_50%_0%,rgba(255,255,255,0.14),transparent)]" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">
-              Interior Design & 
-              <span className="text-red-200"> Furniture</span>
+            <span className="inline-block text-sm font-semibold uppercase tracking-[0.2em] text-accent-100 mb-4">
+              Tarvya Interior
+            </span>
+            <h1 className="font-display text-4xl md:text-6xl font-bold mb-6">
+              Interior Design & <span className="text-accent-100">Furniture</span>
             </h1>
-            <p className="text-xl text-red-100 max-w-3xl mx-auto mb-8">
-              Transform your space with our premium interior design services and custom furniture solutions. 
-              From concept to completion, we bring your vision to life.
+            <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto mb-8">
+              Transform your space with our premium interior design services and custom furniture
+              solutions. From concept to completion, we bring your vision to life.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <button className="bg-red-600 hover:bg-red-700 px-8 py-3 rounded-lg font-semibold transition-colors">
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center rounded-xl bg-white px-7 py-3 font-semibold text-accent-700 shadow-elevated transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent-50"
+              >
                 Get Free Consultation
-              </button>
-              <button className="border border-red-300 hover:bg-red-800 px-8 py-3 rounded-lg font-semibold transition-colors">
+              </a>
+              <a
+                href="#projects"
+                className="inline-flex items-center justify-center rounded-xl border border-white/40 bg-white/10 px-7 py-3 font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/20"
+              >
                 View Portfolio
-              </button>
+              </a>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section className="py-20">
+      <section className="py-20 md:py-28 bg-gradient-to-b from-accent-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-14"
           >
-            <h2 className="text-4xl font-bold text-red-900 mb-4">Our Services</h2>
-            <p className="text-lg text-red-700 max-w-2xl mx-auto">
+            <span className="eyebrow-accent mb-4">What We Do</span>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Services</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Comprehensive interior design and furniture solutions for every space
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {services.map((service, index) => (
               <motion.div
                 key={index}
@@ -122,15 +175,17 @@ const InteriorWork = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow"
+                className="card card-hover group p-6"
               >
-                <div className="text-red-600 mb-4">{service.icon}</div>
-                <h3 className="text-xl font-semibold text-red-900 mb-3">{service.title}</h3>
-                <p className="text-red-700 mb-4">{service.description}</p>
+                <div className="icon-chip-accent mb-5 group-hover:bg-accent-600 group-hover:text-white">
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{service.title}</h3>
+                <p className="text-gray-500 text-sm mb-4 leading-relaxed">{service.description}</p>
                 <ul className="space-y-2">
                   {service.features.map((feature, idx) => (
-                    <li key={idx} className="text-sm text-red-600 flex items-center">
-                      <div className="w-2 h-2 bg-red-400 rounded-full mr-2"></div>
+                    <li key={idx} className="text-sm text-gray-600 flex items-center">
+                      <span className="w-1.5 h-1.5 bg-accent-500 rounded-full mr-2.5 flex-shrink-0" />
                       {feature}
                     </li>
                   ))}
@@ -142,17 +197,18 @@ const InteriorWork = () => {
       </section>
 
       {/* Projects Section */}
-      <section className="py-20 bg-white">
+      <section id="projects" className="py-20 md:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-14"
           >
-            <h2 className="text-4xl font-bold text-red-900 mb-4">Recent Projects</h2>
-            <p className="text-lg text-red-700 max-w-2xl mx-auto">
+            <span className="eyebrow-accent mb-4">Portfolio</span>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-4">Recent Projects</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Explore our latest interior design projects and furniture installations
             </p>
           </motion.div>
@@ -165,31 +221,31 @@ const InteriorWork = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                className="card card-hover group overflow-hidden"
               >
-                <div className="h-48 bg-red-200 relative">
-                  <img 
-                    src={project.image} 
+                <div className="h-52 bg-accent-100 relative overflow-hidden">
+                  <img
+                    src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  <div className="absolute top-4 right-4 bg-accent-600 text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide shadow-sm">
                     {project.duration}
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-red-900 mb-2">{project.title}</h3>
-                  <div className="space-y-2 text-sm text-red-700">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{project.title}</h3>
+                  <div className="space-y-2 text-sm text-gray-600">
                     <div className="flex items-center">
-                      <MapPin className="w-4 h-4 mr-2" />
+                      <MapPin className="w-4 h-4 mr-2 text-accent-600" />
                       {project.location}
                     </div>
                     <div className="flex items-center">
-                      <Ruler className="w-4 h-4 mr-2" />
+                      <Ruler className="w-4 h-4 mr-2 text-accent-600" />
                       {project.area}
                     </div>
                   </div>
-                  <button className="mt-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
+                  <button className="btn-accent w-full mt-5 text-sm py-2.5">
                     View Details
                   </button>
                 </div>
@@ -200,85 +256,57 @@ const InteriorWork = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-20 bg-gradient-to-r from-red-900 to-red-800 text-white">
+      <section className="py-20 md:py-28 bg-accent-gradient text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-14"
           >
-            <h2 className="text-4xl font-bold mb-4">Why Choose Tarvya Interior?</h2>
-            <p className="text-xl text-red-100 max-w-3xl mx-auto">
+            <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">Why Choose Tarvya Interior?</h2>
+            <p className="text-lg md:text-xl text-white/85 max-w-3xl mx-auto">
               We combine creativity with functionality to deliver exceptional interior solutions
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <div className="bg-red-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Expert Team</h3>
-              <p className="text-red-100">
-                Our experienced designers and craftsmen ensure quality and attention to detail
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <div className="bg-red-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Palette className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Custom Design</h3>
-              <p className="text-red-100">
-                Personalized solutions tailored to your style, space, and requirements
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <div className="bg-red-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Star className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Quality Assurance</h3>
-              <p className="text-red-100">
-                Premium materials and craftsmanship guaranteed for lasting beauty
-              </p>
-            </motion.div>
+            {whyChoose.map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="bg-white/10 ring-1 ring-white/20 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5 backdrop-blur-sm">
+                  {item.icon}
+                </div>
+                <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                <p className="text-white/85">{item.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 bg-white">
+      <section id="contact" className="py-20 md:py-28 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-14"
           >
-            <h2 className="text-4xl font-bold text-red-900 mb-4">Ready to Transform Your Space?</h2>
-            <p className="text-lg text-red-700 max-w-2xl mx-auto">
+            <span className="eyebrow-accent mb-4">Let's Talk</span>
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Ready to Transform Your Space?
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Get in touch with our interior design experts for a free consultation
             </p>
           </motion.div>
@@ -289,21 +317,27 @@ const InteriorWork = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="bg-red-50 rounded-xl p-8"
+              className="card p-8"
             >
-              <h3 className="text-2xl font-semibold text-red-900 mb-6">Contact Information</h3>
-              <div className="space-y-4">
-                <div className="flex items-center">
-                  <Phone className="w-5 h-5 text-red-600 mr-3" />
-                  <span className="text-red-700">+91 8929356475</span>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-6">Contact Information</h3>
+              <div className="space-y-5">
+                <div className="flex items-center gap-4">
+                  <div className="icon-chip-accent h-11 w-11">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <span className="text-gray-700">+91 8929356475</span>
                 </div>
-                <div className="flex items-center">
-                  <Mail className="w-5 h-5 text-red-600 mr-3" />
-                  <span className="text-red-700">interior@tarvya.com</span>
+                <div className="flex items-center gap-4">
+                  <div className="icon-chip-accent h-11 w-11">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <span className="text-gray-700">interior@tarvya.com</span>
                 </div>
-                <div className="flex items-center">
-                  <MapPin className="w-5 h-5 text-red-600 mr-3" />
-                  <span className="text-red-700">Noida, Uttar Pradesh, India</span>
+                <div className="flex items-center gap-4">
+                  <div className="icon-chip-accent h-11 w-11">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <span className="text-gray-700">Noida, Uttar Pradesh, India</span>
                 </div>
               </div>
             </motion.div>
@@ -313,52 +347,39 @@ const InteriorWork = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="bg-red-50 rounded-xl p-8"
+              className="card p-8"
             >
-                             <h3 className="text-2xl font-semibold text-red-900 mb-6">Quick Contact Form</h3>
-                               <form 
-                  action="https://formspree.io/f/2795633490048057258" 
-                  method="POST"
-                  className="space-y-4"
-                >
-                 <input
-                   type="text"
-                   name="name"
-                   placeholder="Your Name"
-                   className="w-full px-4 py-3 border border-red-200 rounded-lg focus:outline-none focus:border-red-500"
-                   required
-                 />
-                 <input
-                   type="email"
-                   name="email"
-                   placeholder="Your Email"
-                   className="w-full px-4 py-3 border border-red-200 rounded-lg focus:outline-none focus:border-red-500"
-                   required
-                 />
-                 <select
-                   name="project_type"
-                   className="w-full px-4 py-3 border border-red-200 rounded-lg focus:outline-none focus:border-red-500"
-                 >
-                   <option value="">Select Project Type</option>
-                   <option value="Living Room Design">Living Room Design</option>
-                   <option value="Bedroom Solutions">Bedroom Solutions</option>
-                   <option value="Dining & Kitchen">Dining & Kitchen</option>
-                   <option value="Office Furniture">Office Furniture</option>
-                 </select>
-                 <textarea
-                   name="message"
-                   placeholder="Tell us about your project"
-                   rows="4"
-                   className="w-full px-4 py-3 border border-red-200 rounded-lg focus:outline-none focus:border-red-500"
-                   required
-                 ></textarea>
-                 <button
-                   type="submit"
-                   className="w-full bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-semibold transition-colors"
-                 >
-                   Send Message
-                 </button>
-               </form>
+              <h3 className="text-2xl font-semibold text-gray-900 mb-6">Quick Contact Form</h3>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <input type="text" name="name" placeholder="Your Name" className="field" required />
+                <input type="email" name="email" placeholder="Your Email" className="field" required />
+                <select name="project_type" className="field">
+                  <option value="">Select Project Type</option>
+                  <option value="Living Room Design">Living Room Design</option>
+                  <option value="Bedroom Solutions">Bedroom Solutions</option>
+                  <option value="Dining & Kitchen">Dining & Kitchen</option>
+                  <option value="Office Furniture">Office Furniture</option>
+                </select>
+                <textarea
+                  name="message"
+                  placeholder="Tell us about your project"
+                  rows="4"
+                  className="field resize-none"
+                  required
+                ></textarea>
+                {/* Honeypot anti-spam field — hidden from users */}
+                <input
+                  type="checkbox"
+                  name="botcheck"
+                  className="hidden"
+                  style={{ display: "none" }}
+                  tabIndex="-1"
+                  autoComplete="off"
+                />
+                <button type="submit" disabled={isSubmitting} className="btn-accent w-full">
+                  {isSubmitting ? "Sending..." : "Send Message"}
+                </button>
+              </form>
             </motion.div>
           </div>
         </div>
@@ -367,4 +388,4 @@ const InteriorWork = () => {
   );
 };
 
-export default InteriorWork; 
+export default InteriorWork;

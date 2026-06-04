@@ -7,7 +7,7 @@ const PropertyDetails = () => {
 
   if (!property) {
     return (
-      <div className="text-center text-[#1E3A8A] py-20 text-xl">
+      <div className="text-center text-brand-800 py-20 text-xl">
         Property not found
       </div>
     );

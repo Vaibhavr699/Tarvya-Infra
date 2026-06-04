@@ -100,7 +100,7 @@ const Contact = () => {
             required
           ></textarea>
         </div>
-        <button className="border bg-blue-600 px-8 py-3 rounded text-white">
+        <button className="btn-primary">
           {isSubmitting ? "Sending..." : "Send Message"}
         </button>
       </form>

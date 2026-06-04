@@ -11,6 +11,9 @@ import Contact from "./pages/Contact";
 import PropertyDetails from "./pages/PropertyDetails";
 import PropertyList from "./components/PropertyList";
 import InteriorWork from "./pages/InteriorWork";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
+import Sitemap from "./pages/Sitemap";
 
 function App() {
   return (
@@ -34,9 +37,9 @@ function App() {
             <Route path="/properties/industrial" element={<PropertyList type="industrial" />} />
             
             {/* Legal Routes */}
-            <Route path="/privacy-policy" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl">Privacy Policy Page - Coming Soon</h1></div>} />
-            <Route path="/terms" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl">Terms of Service Page - Coming Soon</h1></div>} />
-            <Route path="/sitemap" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl">Sitemap Page - Coming Soon</h1></div>} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<TermsOfService />} />
+            <Route path="/sitemap" element={<Sitemap />} />
             
             {/* 404 Route */}
             <Route path="*" element={<div className="min-h-screen flex items-center justify-center"><h1 className="text-2xl">404 - Page Not Found</h1></div>} />
