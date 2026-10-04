@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Plus, Pencil, Trash2, Eye, EyeOff, X, Loader2 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
-import { ImageField, ImagesField, VideoField, ListField, UnitsField, DetailsField } from './fields';
+import { ImageField, ImagesField, VideoField, FileField, ListField, UnitsField, DetailsField } from './fields';
 
 const badgeTones = {
   green: 'bg-green-100 text-green-700',
@@ -28,7 +28,7 @@ const toPayload = (fields, values) => {
     let value = values[field.name];
     if (field.type === 'number' || field.numeric) {
       value = value === '' || value === null || value === undefined ? null : Number(value);
-    } else if (['text', 'textarea', 'image', 'video'].includes(field.type)) {
+    } else if (['text', 'textarea', 'image', 'video', 'file'].includes(field.type)) {
       value = typeof value === 'string' ? value.trim() || null : value ?? null;
     }
     payload[field.name] = value;
@@ -67,6 +67,8 @@ const FieldInput = ({ field, value, onChange, folder }) => {
       return <ImagesField value={value || []} onChange={onChange} folder={folder} />;
     case 'video':
       return <VideoField value={value} onChange={onChange} folder={folder} />;
+    case 'file':
+      return <FileField value={value} onChange={onChange} folder={folder} />;
     case 'list':
       return <ListField value={value || []} onChange={onChange} placeholder={field.placeholder} />;
     case 'units':

@@ -1,9 +1,10 @@
+import Seo from "../components/Seo";
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Send, Building2 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { sendFormData, formatContactFormData } from '../utils/formspree';
-import contactBg from '../assets/building bg1.png';
+import contactBg from '../assets/building bg1.webp';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -79,6 +80,7 @@ const Contact = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Contact Us" path="/contact" description="Talk to Tarvya Infra about office, retail, or industrial space in Noida. Call +91 8929356475 or send us a message." />
       {/* Hero Section */}
       <section className="relative pt-36 pb-24 bg-brand-950 text-white overflow-hidden">
         {/* Building wireframe background */}

@@ -8,7 +8,7 @@ import { supabase, isSupabaseConfigured } from '../lib/supabase';
 import { resources } from './resources';
 import ResourceManager from './ResourceManager';
 import { importExistingContent } from './importContent';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.webp';
 
 const navItems = [
   { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, end: true },

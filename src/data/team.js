@@ -1,8 +1,8 @@
-import Aniket from '../assets/Aniket.jpg';
-import Ankit from '../assets/Ankit.jpg';
-import Amir from '../assets/Amir Sohail.jpeg';
-import Mili from '../assets/Mili.jpeg';
-import Rakesh from '../assets/Rakesh Kumar.jpeg';
+import Aniket from '../assets/Aniket.webp';
+import Ankit from '../assets/Ankit.webp';
+import Amir from '../assets/Amir Sohail.webp';
+import Mili from '../assets/Mili.webp';
+import Rakesh from '../assets/Rakesh Kumar.webp';
 
 export const team = [
   {

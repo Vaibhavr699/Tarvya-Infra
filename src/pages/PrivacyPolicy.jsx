@@ -1,6 +1,7 @@
+import Seo from "../components/Seo";
 import React, { useEffect } from "react";
 import { FaMapMarkerAlt, FaPhone, FaEnvelope } from "react-icons/fa";
-import pageBg from "../assets/building bg1.png";
+import pageBg from "../assets/building bg1.webp";
 
 const LAST_UPDATED = "June 3, 2026";
 
@@ -18,6 +19,7 @@ const PrivacyPolicy = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Privacy Policy" path="/privacy-policy" />
       {/* Hero Section */}
       <section className="relative pt-36 pb-24 bg-brand-950 text-white overflow-hidden">
         {/* Building wireframe background */}

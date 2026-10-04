@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Building2, CalendarCheck } from "lucide-react";
-import heroImage from "../assets/hero image.png";
-import assotech from "../assets/Assotech.jpg";
-import atstower from "../assets/atstower.jpg";
-import atsb from "../assets/atsb.jpg";
+import heroImage from "../assets/hero image.webp";
+import assotech from "../assets/Assotech.webp";
+import atstower from "../assets/atstower.webp";
+import atsb from "../assets/atsb.webp";
 import opus from "../assets/opus.webp";
-import maxSquare from "../assets/max.jpg";
-import img6 from "../assets/img6.jpg";
-import img7 from "../assets/img7.jpg";
+import maxSquare from "../assets/max.webp";
+import img6 from "../assets/img6.webp";
+import img7 from "../assets/img7.webp";
 
 // Images cycled in the hero frame — add or reorder freely.
 const heroImages = [heroImage, assotech, atstower, atsb, opus, maxSquare, img6, img7];

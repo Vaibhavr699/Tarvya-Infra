@@ -1,3 +1,4 @@
+import Seo from "../components/Seo";
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
@@ -91,6 +92,7 @@ const InteriorWork = () => {
 
   return (
     <div className="min-h-screen bg-white">
+      <Seo title="Interior Design & Fit-outs" path="/interior" description="Office and commercial interior design, fit-outs, and custom furniture by Tarvya Infra in Noida and Delhi NCR." />
       {/* Hero Section */}
       <section className="relative pt-36 pb-24 bg-accent-gradient text-white overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(50%_60%_at_50%_0%,rgba(255,255,255,0.14),transparent)]" />
@@ -203,7 +205,7 @@ const InteriorWork = () => {
                 className="card card-hover group overflow-hidden"
               >
                 <div className="h-52 bg-accent-100 relative overflow-hidden">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"

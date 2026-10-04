@@ -1,3 +1,4 @@
+import Seo, { ORGANIZATION_JSON_LD } from "../components/Seo";
 import React from 'react';
 import ImageCarousel from '../components/ImageCarousel';
 import Welcome from '../components/Welcome';
@@ -14,6 +15,7 @@ import Testimonials from '../components/Testimonials';
 const Home = () => {
   return (
     <div>
+      <Seo path="/" description="Tarvya Infra helps businesses lease and buy premium office, retail, and industrial spaces across Noida and Delhi NCR — verified listings, expert advice, end-to-end support." jsonLd={ORGANIZATION_JSON_LD} />
       <ImageCarousel />
       <TrustedBySlider/>
       <Welcome/>

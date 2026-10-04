@@ -1,3 +1,4 @@
+import Seo from "../components/Seo";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
@@ -11,6 +12,7 @@ const TestimonialsPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Client Testimonials" path="/testimonials" description="Hear from businesses that found their office and retail spaces in Noida with Tarvya Infra." />
       <section className="bg-white pt-28 md:pt-32 pb-10 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>

@@ -33,7 +33,7 @@ export const TestimonialCard = ({ testimonial: t, index = 0 }) => (
       <blockquote className="text-gray-700 leading-relaxed flex-grow">“{t.quote}”</blockquote>
       <figcaption className="mt-6 flex items-center gap-3">
         {t.image ? (
-          <img src={t.image} alt={t.name} className="w-12 h-12 rounded-full object-cover ring-2 ring-brand-50" />
+          <img loading="lazy" decoding="async" src={t.image} alt={t.name} className="w-12 h-12 rounded-full object-cover ring-2 ring-brand-50" />
         ) : (
           <span className="grid place-items-center w-12 h-12 rounded-full bg-brand-50 text-brand-800 font-bold">
             {t.name.charAt(0)}

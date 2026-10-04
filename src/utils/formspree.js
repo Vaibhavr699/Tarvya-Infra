@@ -96,6 +96,36 @@ export const formatInteriorInquiryData = (formData) => ({
   botcheck: formData.botcheck || "",
 });
 
+// Site visit request from a property page → email payload
+export const formatSiteVisitData = (formData, property) => ({
+  subject: `Site Visit Request — ${property.title}`,
+  from_name: "Tarvya Infra Website",
+  name: formData.name || "Anonymous",
+  phone: formData.phone || "Not provided",
+  email: formData.email || "",
+  property: property.title,
+  property_link: formData.propertyUrl || "",
+  preferred_date: formData.date || "Flexible",
+  preferred_time: formData.time || "Flexible",
+  message: formData.message || "No message provided",
+  replyto: formData.email || "",
+  botcheck: formData.botcheck || "",
+});
+
+// Brochure download from a property page → email payload
+export const formatBrochureRequestData = (formData, property) => ({
+  subject: `Brochure Download — ${property.title}`,
+  from_name: "Tarvya Infra Website",
+  name: formData.name || "Anonymous",
+  phone: formData.phone || "Not provided",
+  email: formData.email || "",
+  property: property.title,
+  property_link: formData.propertyUrl || "",
+  message: `${formData.name || "A visitor"} downloaded the brochure for ${property.title}.`,
+  replyto: formData.email || "",
+  botcheck: formData.botcheck || "",
+});
+
 // Newsletter subscription → email payload
 export const formatNewsletterData = (email) => ({
   subject: "New Newsletter Subscription — Tarvya Infra",

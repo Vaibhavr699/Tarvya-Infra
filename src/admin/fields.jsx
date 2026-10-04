@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { toast } from 'react-toastify';
-import { ImagePlus, Loader2, X, ArrowLeft, ArrowRight, Plus, Trash2, Video } from 'lucide-react';
+import { ImagePlus, Loader2, X, ArrowLeft, ArrowRight, Plus, Trash2, Video, FileText } from 'lucide-react';
 import { uploadImage } from './upload';
 
 const DropZone = ({ multiple, onFiles, uploading, compact }) => {
@@ -141,6 +141,74 @@ export const VideoField = ({ value, onChange, folder }) => {
         ref={inputRef}
         type="file"
         accept="video/mp4,video/webm,video/quicktime"
+        className="hidden"
+        onChange={(e) => {
+          handleFile(e.target.files?.[0]);
+          e.target.value = '';
+        }}
+      />
+    </button>
+  );
+};
+
+const MAX_PDF_MB = 20;
+
+export const FileField = ({ value, onChange, folder }) => {
+  const inputRef = useRef(null);
+  const [uploading, setUploading] = useState(false);
+
+  const handleFile = async (file) => {
+    if (!file) return;
+    if (file.type !== 'application/pdf') {
+      toast.error('Please choose a PDF file.');
+      return;
+    }
+    if (file.size > MAX_PDF_MB * 1024 * 1024) {
+      toast.error(`PDF is ${(file.size / 1024 / 1024).toFixed(0)} MB. The limit is ${MAX_PDF_MB} MB.`);
+      return;
+    }
+    setUploading(true);
+    try {
+      onChange(await uploadImage(file, folder));
+    } catch (error) {
+      toast.error(`Upload failed: ${error.message}`);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  if (value) {
+    return (
+      <div className="flex items-center gap-3 rounded-xl bg-gray-50 px-4 py-3 ring-1 ring-gray-200">
+        <FileText className="w-5 h-5 text-brand-700 shrink-0" />
+        <a href={value} target="_blank" rel="noreferrer" className="flex-1 truncate text-sm font-medium text-brand-800 hover:underline">
+          View uploaded PDF
+        </a>
+        <button type="button" onClick={() => onChange('')} className="text-gray-500 hover:text-red-600" aria-label="Remove PDF">
+          <X className="w-4 h-4" />
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={() => inputRef.current?.click()}
+      onDragOver={(e) => e.preventDefault()}
+      onDrop={(e) => {
+        e.preventDefault();
+        handleFile(e.dataTransfer.files?.[0]);
+      }}
+      disabled={uploading}
+      className="flex w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-gray-200 py-6 text-sm text-gray-500 transition-colors hover:border-brand-700 hover:text-brand-800"
+    >
+      {uploading ? <Loader2 className="w-6 h-6 animate-spin" /> : <FileText className="w-6 h-6" />}
+      <span>{uploading ? 'Uploading…' : `Drop a PDF or click to upload (up to ${MAX_PDF_MB} MB)`}</span>
+      <input
+        ref={inputRef}
+        type="file"
+        accept="application/pdf"
         className="hidden"
         onChange={(e) => {
           handleFile(e.target.files?.[0]);

@@ -1,12 +1,12 @@
 // Import images from assets
-import assotech from "../assets/abc.jpg";
-import opus from "../assets/opus.png";
-import max from "../assets/max.jpg";
-import supernova from "../assets/img2.jpg";
-import urbtech from "../assets/urbtech.jpg";
-import btower from "../assets/img3.jpg";
-import innovation from "../assets/innovation.png";
-import atsTower from "../assets/atstower.jpg";
+import assotech from "../assets/abc.webp";
+import opus from "../assets/opus-cover.webp";
+import max from "../assets/max.webp";
+import supernova from "../assets/img2.webp";
+import urbtech from "../assets/urbtech.webp";
+import btower from "../assets/img3.webp";
+import innovation from "../assets/innovation.webp";
+import atsTower from "../assets/atstower.webp";
 
 export const featuredProperties = [
   {

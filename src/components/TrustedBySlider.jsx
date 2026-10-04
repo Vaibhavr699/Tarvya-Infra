@@ -1,13 +1,13 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
 
-import logo2 from "../assets/advant.png";
-import logo3 from "../assets/abc.png";
-import logo4 from "../assets/ats.png";
-import logo5 from "../assets/max.png";
-import logo6 from "../assets/supernova.png";
-import logo7 from "../assets/urbtech.png";
-import logo8 from "../assets/bhutani.png";
+import logo2 from "../assets/advant.webp";
+import logo3 from "../assets/abc-logo.webp";
+import logo4 from "../assets/ats-logo.webp";
+import logo5 from "../assets/max-logo.webp";
+import logo6 from "../assets/supernova.webp";
+import logo7 from "../assets/urbtech-logo.webp";
+import logo8 from "../assets/bhutani.webp";
 
 const logos = [
   { src: logo2, alt: "Advant" },
@@ -45,7 +45,7 @@ const TrustedBySlider = () => {
                 key={index}
                 className="mx-8 sm:mx-12 flex h-16 w-36 items-center justify-center"
               >
-                <img
+                <img loading="lazy" decoding="async"
                   src={logo.src}
                   alt={logo.alt}
                   className="max-h-12 max-w-full object-contain"

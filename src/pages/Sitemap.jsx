@@ -1,7 +1,8 @@
+import Seo from "../components/Seo";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowRight } from "react-icons/fa";
-import pageBg from "../assets/building bg1.png";
+import pageBg from "../assets/building bg1.webp";
 
 const SITE_MAP = [
   {
@@ -39,6 +40,7 @@ const Sitemap = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="Sitemap" path="/sitemap" />
       {/* Hero Section */}
       <section className="relative pt-36 pb-24 bg-brand-950 text-white overflow-hidden">
         {/* Building wireframe background */}

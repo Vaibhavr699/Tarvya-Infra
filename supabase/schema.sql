@@ -39,6 +39,10 @@ create table if not exists public.properties (
   description text,
   cover_image text,
   gallery text[] not null default '{}',
+  floor_plans text[] not null default '{}',
+  video_url text,
+  tour_url text,
+  brochure_url text,
   details jsonb not null default '{}'::jsonb,
   units jsonb not null default '[]'::jsonb,
   amenities text[] not null default '{}',
@@ -65,6 +69,10 @@ create table if not exists public.testimonials (
 );
 
 alter table public.testimonials add column if not exists video_url text;
+alter table public.properties add column if not exists floor_plans text[] not null default '{}';
+alter table public.properties add column if not exists video_url text;
+alter table public.properties add column if not exists tour_url text;
+alter table public.properties add column if not exists brochure_url text;
 
 create table if not exists public.team_members (
   id uuid primary key default gen_random_uuid(),

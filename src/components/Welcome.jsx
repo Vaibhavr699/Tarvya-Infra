@@ -1,9 +1,9 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Building2, Users, Handshake, LayoutGrid, ArrowRight } from "lucide-react";
-import welcomeBg from "../assets/building bg white.png";
-import featuredImg from "../assets/img7.jpg";
-import listingsImg from "../assets/atstower.jpg";
+import welcomeBg from "../assets/building bg white.webp";
+import featuredImg from "../assets/img7.webp";
+import listingsImg from "../assets/atstower.webp";
 
 const Welcome = () => {
   return (
@@ -61,7 +61,7 @@ const Welcome = () => {
             variants={cardVariants}
             className="relative lg:row-span-2 rounded-3xl bg-brand-900 ring-1 ring-white/5 overflow-hidden"
           >
-            <img
+            <img loading="lazy" decoding="async"
               src={featuredImg}
               alt=""
               aria-hidden="true"
@@ -118,7 +118,7 @@ const Welcome = () => {
                 </p>
               </div>
               <div className="relative h-44 md:h-56 rounded-2xl overflow-hidden ring-1 ring-gray-900/5">
-                <img
+                <img loading="lazy" decoding="async"
                   src={listingsImg}
                   alt="Commercial buildings in Noida"
                   className="absolute inset-0 w-full h-full object-cover"

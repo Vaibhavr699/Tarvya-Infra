@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/logo.webp";
 import {
   Menu,
   X,
@@ -44,7 +44,7 @@ const Header = () => {
     setMenuOpen(false);
     setPropertiesOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [location]);
+  }, [location.pathname]);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleProperties = () => setPropertiesOpen(!propertiesOpen);

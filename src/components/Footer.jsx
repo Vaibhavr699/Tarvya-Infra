@@ -11,8 +11,8 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
-import Logo from "../assets/logo.png";
-import footerBg from "../assets/building bg2.png";
+import Logo from "../assets/logo.webp";
+import footerBg from "../assets/building bg2.webp";
 import { sendFormData, formatNewsletterData } from '../utils/formspree';
 
 const Footer = () => {
@@ -66,7 +66,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-              <img
+              <img loading="lazy" decoding="async"
                 src={Logo}
                 alt="Tarvya Infra Logo"
                 className="h-12 w-12 object-cover"

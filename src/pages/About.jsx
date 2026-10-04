@@ -1,3 +1,4 @@
+import Seo from "../components/Seo";
 import React from 'react';
 import { motion } from 'framer-motion';
 import {
@@ -7,8 +8,8 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useContent } from '../lib/content';
-import aboutBg from '../assets/building bg1.png';
-import storyImg from '../assets/Assotech.jpg';
+import aboutBg from '../assets/building bg1.webp';
+import storyImg from '../assets/Assotech.webp';
 
 const About = () => {
   const { data: team } = useContent('team');
@@ -71,6 +72,7 @@ const About = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <Seo title="About Us" path="/about" description="Meet the Tarvya Infra leadership team and learn how we help businesses find the right commercial space in Noida." />
       {/* Hero Section */}
       <section className="relative pt-36 pb-24 bg-brand-950 text-white overflow-hidden">
         {/* Building wireframe background */}
@@ -135,7 +137,7 @@ const About = () => {
               className="relative"
             >
               <div className="absolute -inset-3 -z-10 rounded-[2rem] bg-brand-50" />
-              <img
+              <img loading="lazy" decoding="async"
                 src={storyImg}
                 alt="Tarvya Infra commercial project in Noida"
                 className="w-full h-[300px] sm:h-[420px] object-cover rounded-3xl shadow-elevated ring-1 ring-gray-900/5"
@@ -324,7 +326,7 @@ const About = () => {
               >
                 <div className="w-36 h-36 bg-gray-100 rounded-full mx-auto mb-5 flex items-center justify-center overflow-hidden ring-4 ring-brand-50">
                   {member.image ? (
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={member.image}
                       alt={member.name}
                       className="w-full h-full object-cover"

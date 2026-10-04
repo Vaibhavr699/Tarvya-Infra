@@ -46,7 +46,7 @@ const FeaturedProperties = () => {
               >
                 <Link to={`/property/${property.id}`} className="group block">
                   <div className="relative overflow-hidden rounded-2xl ring-1 ring-gray-900/[0.06] shadow-sm">
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={property.image}
                       alt={property.title}
                       className="w-full aspect-[4/3] object-cover transition-transform duration-500 group-hover:scale-105"

@@ -1,10 +1,10 @@
-import img1 from '../assets/wave-one.jpg';
-import img2 from '../assets/ithum.jpg';
-import img3 from '../assets/corenthum.jpg';
-import img5 from '../assets/atsb.jpg';
-import img6 from '../assets/img6.jpg';
-import img7 from '../assets/img7.jpg';
-import img8 from '../assets/img8.jpg';
+import img1 from '../assets/wave-one.webp';
+import img2 from '../assets/ithum.webp';
+import img3 from '../assets/corenthum.webp';
+import img5 from '../assets/atsb.webp';
+import img6 from '../assets/img6.webp';
+import img7 from '../assets/img7.webp';
+import img8 from '../assets/img8.webp';
 
 export const properties = [
     {
