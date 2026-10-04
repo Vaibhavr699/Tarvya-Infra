@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { MapPin, ArrowRight, ArrowUpRight } from "lucide-react";
-import { properties } from "../data/properties";
+import { useContent } from "../lib/content";
 
 const filters = [
   { label: "All Properties", path: "/properties", value: undefined },
@@ -31,7 +31,9 @@ const cardVariants = {
 };
 
 const PropertyList = ({ type }) => {
-  const filtered = type ? properties.filter((p) => p.type === type) : properties;
+  const { data: allProperties, loading } = useContent("properties");
+  const listed = allProperties.filter((p) => p.status === "available" && !p.featured);
+  const filtered = type ? listed.filter((p) => p.type === type) : listed;
   const title = type ? titles[type] || "Properties" : "All Properties";
 
   return (
@@ -77,7 +79,9 @@ const PropertyList = ({ type }) => {
       {/* Grid */}
       <section className="py-16 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filtered.length === 0 ? (
+          {loading ? (
+            <p className="text-center text-gray-500">Loading properties…</p>
+          ) : filtered.length === 0 ? (
             <div className="card mx-auto max-w-lg p-10 text-center">
               <h2 className="font-display text-2xl font-bold text-gray-900 mb-3">
                 No properties here yet
@@ -145,7 +149,7 @@ const PropertyList = ({ type }) => {
           )}
 
           {/* CTA */}
-          {filtered.length > 0 && (
+          {!loading && filtered.length > 0 && (
             <div className="mt-16 text-center">
               <p className="text-gray-600 mb-5">
                 Can't find the right space? Our team will help you find it.

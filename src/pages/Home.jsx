@@ -8,6 +8,8 @@ import Contact from '../components/Contact';
 import FeaturedProperties from '../components/FeaturedProperties';
 import TrustedBySlider from '../components/TrustedBySlider';
 import StatsBar from '../components/StatsBar';
+import CompletedProjects from '../components/CompletedProjects';
+import Testimonials from '../components/Testimonials';
 
 const Home = () => {
   return (
@@ -17,7 +19,9 @@ const Home = () => {
       <Welcome/>
       <PropertySection/>
       <FeaturedProperties/>
+      <CompletedProjects/>
       <InteriorSection/>
+      <Testimonials/>
       <StatsBar/>
     </div>
   );

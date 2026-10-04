@@ -15,14 +15,19 @@ import {
   Layers,
   Award,
 } from 'lucide-react';
-import { featuredProperties } from '../components/FeaturedProperties';
-import { properties } from '../data/properties';
+import { useContent } from '../lib/content';
 
 const PropertyDetails = () => {
   const { id } = useParams();
-  let property = properties.find((p) => p.id === id);
-  if (!property) {
-    property = featuredProperties.find((p) => p.id === id);
+  const { data: properties, loading } = useContent('properties');
+  const property = properties.find((p) => p.id === id);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+        <p className="text-gray-500">Loading property…</p>
+      </div>
+    );
   }
 
   if (!property) {
@@ -136,6 +141,24 @@ const PropertyDetails = () => {
                 ))}
               </div>
             </div>
+
+            {property.gallery?.length > 0 && (
+              <div className="card p-7 md:p-8">
+                <h2 className="font-display text-2xl font-bold text-gray-900 mb-6">Gallery</h2>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {property.gallery.map((src) => (
+                    <a key={src} href={src} target="_blank" rel="noreferrer" className="block overflow-hidden rounded-xl">
+                      <img
+                        src={src}
+                        alt={property.title}
+                        loading="lazy"
+                        className="w-full aspect-[4/3] object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Units */}
             <div className="card p-7 md:p-8">

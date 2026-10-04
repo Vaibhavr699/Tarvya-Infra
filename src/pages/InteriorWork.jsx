@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import { sendFormData, formatInteriorInquiryData } from '../utils/formspree';
+import { useContent } from '../lib/content';
 import {
   Sofa,
   Bed,
@@ -68,29 +69,7 @@ const InteriorWork = () => {
     },
   ];
 
-  const projects = [
-    {
-      title: "Modern Apartment Interior",
-      location: "Sector 62, Noida",
-      area: "1200 sq ft",
-      duration: "45 days",
-      image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=500",
-    },
-    {
-      title: "Luxury Villa Design",
-      location: "Sector 140, Noida",
-      area: "3500 sq ft",
-      duration: "90 days",
-      image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=500",
-    },
-    {
-      title: "Corporate Office Interior",
-      location: "Sector 18, Noida",
-      area: "5000 sq ft",
-      duration: "60 days",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=500",
-    },
-  ];
+  const { data: projects } = useContent('interior');
 
   const whyChoose = [
     {
@@ -216,7 +195,7 @@ const InteriorWork = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <motion.div
-                key={index}
+                key={project.title + index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}

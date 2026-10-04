@@ -176,6 +176,15 @@ const Footer = () => {
               </li>
               <li>
                 <Link
+                  to="/testimonials"
+                  className="text-gray-400 hover:text-brand-300 transition-colors duration-300 flex items-center"
+                >
+                  <FaArrowRight className="mr-2 text-xs" />
+                  Testimonials
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/contact"
                   className="text-gray-400 hover:text-brand-300 transition-colors duration-300 flex items-center"
                 >

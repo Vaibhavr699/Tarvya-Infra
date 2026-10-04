@@ -6,13 +6,12 @@ import {
   MessageSquare, Search, MapPin, FileSignature, KeyRound,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Aniket from '../assets/Aniket.jpg';
-import Vaibhav from '../assets/Vaibhav.jpg';
-import Ankit from '../assets/Ankit.jpg';
+import { useContent } from '../lib/content';
 import aboutBg from '../assets/building bg1.png';
 import storyImg from '../assets/Assotech.jpg';
 
 const About = () => {
+  const { data: team } = useContent('team');
   const stats = [
     { number: "5+", label: "Years Experience", icon: <Award className="w-6 h-6" /> },
     { number: "300+", label: "Properties Sold", icon: <Building2 className="w-6 h-6" /> },
@@ -313,45 +312,41 @@ const About = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Ankit Ojha",
-                position: "PR and Marketing Head",
-                description: "5+ years of experience in real estate development",
-                image: Ankit
-              },
-              {
-                name: "Aniket Ojha",
-                position: "Managing Director",
-                description: "Expert in commercial property management",
-                image: Aniket
-              },
-              {
-                name: "Vaibhav Raj",
-                position: "Business Development",
-                description: "Specialist in strategic property investments",
-                image: Vaibhav
-              }
-            ].map((member, index) => (
+          <div className="flex flex-wrap justify-center gap-8">
+            {team.map((member, index) => (
               <motion.div
                 key={member.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="card card-hover p-8 text-center"
+                className="card card-hover p-8 text-center w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)] max-w-sm"
               >
                 <div className="w-36 h-36 bg-gray-100 rounded-full mx-auto mb-5 flex items-center justify-center overflow-hidden ring-4 ring-brand-50">
                   {member.image ? (
-                    <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                      style={{
+                        ...(member.imagePosition ? { objectPosition: member.imagePosition } : {}),
+                        ...(member.imageScale
+                          ? {
+                              transform: `scale(${member.imageScale})`,
+                              transformOrigin: member.imageOrigin || "center center",
+                            }
+                          : {}),
+                      }}
+                    />
                   ) : (
                     <span className="text-4xl font-bold text-gray-600">{member.name.charAt(0)}</span>
                   )}
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{member.name}</h3>
                 <div className="text-brand-800 mb-2">{member.position}</div>
-                <p className="text-gray-600 text-sm">{member.description}</p>
+                {member.description && (
+                  <p className="text-gray-600 text-sm">{member.description}</p>
+                )}
               </motion.div>
             ))}
           </div>
